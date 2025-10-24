@@ -1,3 +1,11 @@
+import Header from "./components/Header";
+import Login from "./components/Login";
+
 export default function App() {
-  return <h1>trivia game</h1>;
+  return (
+    <>
+      <Header />
+      <Login />
+    </>
+  );
 }
