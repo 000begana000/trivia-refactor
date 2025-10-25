@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import PlayerContextProvider from "./store/player-context";
+
 import Header from "./components/Header";
 import Login from "./components/Login";
 
@@ -11,9 +13,9 @@ export default function App() {
   }
 
   return (
-    <>
+    <PlayerContextProvider>
       <Header />
       {page === "login" && <Login onChangePage={handleChangePage} />}
-    </>
+    </PlayerContextProvider>
   );
 }
