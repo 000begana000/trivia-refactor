@@ -1,7 +1,8 @@
 import { createContext, useState } from "react";
 
 export const PlayerContext = createContext({
-  playerName,
+  playerName: "",
+  onSavePlayerName: () => {},
 });
 
 export default function PlayerContextProvider({ children }) {
@@ -13,6 +14,7 @@ export default function PlayerContextProvider({ children }) {
 
   const ctxValue = {
     playerName,
+    onSavePlayerName: handleSavePlayerName,
   };
 
   return (
