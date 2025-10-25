@@ -3,13 +3,13 @@ import { useRef, useContext } from "react";
 import { PlayerContext } from "../store/player-context";
 
 export default function Login({ onChangePage }) {
-  const { onSavePlayerName } = useContext(PlayerContext);
+  const { onCreatePlayer } = useContext(PlayerContext);
 
   const playerName = useRef();
 
   function handleSavePlayerName(event) {
     event.preventDefault();
-    onSavePlayerName(playerName.current.value);
+    onCreatePlayer(playerName.current.value);
     console.log(playerName.current.value);
   }
 
