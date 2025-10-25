@@ -19,7 +19,7 @@ export default function Login({ onChangePage }) {
       <form action="">
         <p>Please enter your player name</p>
         <div className="input">
-          <input type="text" name="" id="" ref={playerName} />
+          <input type="text" name="" id="" minLength={5} ref={playerName} />
           <button onClick={handleSavePlayerName}>save</button>
         </div>
       </form>
