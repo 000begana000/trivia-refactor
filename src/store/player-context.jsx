@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 
 export const PlayerContext = createContext({
-  player: { playerName, currentScore, highScore },
+  player: { playerName: "", currentScore: 0, highScore: 0 },
   onCreatePlayer: () => {},
 });
 
