@@ -10,6 +10,7 @@ export default function Login({ onChangePage }) {
   function handleSavePlayerName(event) {
     event.preventDefault();
     onCreatePlayer(playerName.current.value);
+    onChangePage("categories");
     console.log(playerName.current.value);
   }
 
