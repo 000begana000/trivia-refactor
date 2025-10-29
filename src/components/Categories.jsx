@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 
+import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
 const CATEGORIES = [
@@ -22,6 +23,7 @@ export default function Categories({ onChangePage }) {
   const [error, setError] = useState(false);
 
   const { onSaveQuizItems } = useContext(QuizContext);
+  const { player } = useContext(PlayerContext);
 
   useEffect(() => {
     async function fetchQuiz() {
@@ -62,6 +64,8 @@ export default function Categories({ onChangePage }) {
 
   return (
     <div>
+      <p>Welcome, {player.playerName}!</p>
+      <p>Please select a category.</p>
       <ul>
         {CATEGORIES.map(category => (
           <li key={category.id}>
