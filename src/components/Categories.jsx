@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
+import { QuizContext } from "../store/quiz-context";
 
 const CATEGORIES = [
   { id: 9, name: "General Knowledge" },
@@ -12,11 +14,13 @@ const CATEGORIES = [
   { id: 31, name: "Japanese Anime & Manga" },
 ];
 
-export default function Categories() {
+export default function Categories({ onChangePage }) {
   const [categoryId, setCategoryId] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const { onSaveQuizItems } = useContext(QuizContext);
 
   useEffect(() => {
     async function fetchQuiz() {
@@ -33,6 +37,7 @@ export default function Categories() {
           throw new Error("faild to fetch quiz data");
         }
 
+        onSaveQuizItems(resData.results);
         console.log(resData.results);
       } catch (error) {
         setError({ message: error.message || "Could not fetch quiz items." });
@@ -47,7 +52,9 @@ export default function Categories() {
     setCategoryId(category.id);
   }
 
-  function handleStartGame() {}
+  function handleStartGame() {
+    onChangePage("quiz");
+  }
 
   return (
     <div>
