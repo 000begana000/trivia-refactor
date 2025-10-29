@@ -1,17 +1,24 @@
 import { createContext, useState } from "react";
 
 export const QuizContext = createContext({
-  questions: [],
-  answers: [],
+  quizItems: [],
   answerState: [],
+  onSaveQuizItems: resData => {},
 });
 
 export default function QuizContextProvider({ children }) {
-  const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
+  const [quizItems, setQuizItems] = useState([]);
   const [answerState, setAnswerState] = useState([]);
 
-  const ctxValue = { questions, answers, answerState };
+  function handleSaveQuizItems(resData) {
+    setQuizItems(resData);
+  }
+
+  const ctxValue = {
+    quizItems,
+    answerState,
+    onSaveQuizItems: handleSaveQuizItems,
+  };
 
   return (
     <QuizContext.Provider value={ctxValue}>{children}</QuizContext.Provider>
