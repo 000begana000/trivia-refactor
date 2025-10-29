@@ -17,6 +17,7 @@ const CATEGORIES = [
 export default function Categories({ onChangePage }) {
   const [categoryId, setCategoryId] = useState("");
   const [categoryName, setCategoryName] = useState("");
+  const [playedCategories, setPlayedCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -53,6 +54,9 @@ export default function Categories({ onChangePage }) {
   }
 
   function handleStartGame() {
+    // save played category ids
+    setPlayedCategories(prevCategories => [...prevCategories, categoryId]);
+
     onChangePage("quiz");
   }
 
