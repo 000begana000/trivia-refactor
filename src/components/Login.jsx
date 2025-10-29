@@ -17,7 +17,7 @@ export default function Login({ onChangePage }) {
   return (
     <div>
       <h1>Welcome to trivia quiz</h1>
-      <form action="">
+      <form action="" onSubmit={handleSavePlayerName}>
         <p>Please enter your player name</p>
         <div className="input">
           <input
@@ -28,7 +28,7 @@ export default function Login({ onChangePage }) {
             minLength={5}
             ref={playerName}
           />
-          <button onSubmit={handleSavePlayerName}>save</button>
+          <button type="submit">save</button>
         </div>
       </form>
     </div>
