@@ -4,6 +4,7 @@ export const QuizContext = createContext({
   quizItems: [],
   answerState: [],
   onSaveQuizItems: resData => {},
+  onSaveAnswerState: newAnswerState => {},
 });
 
 export default function QuizContextProvider({ children }) {
@@ -14,10 +15,15 @@ export default function QuizContextProvider({ children }) {
     setQuizItems(resData);
   }
 
+  function handleSaveAnswerState(newAnswerState) {
+    setAnswerState(prevAnswerStates => [...prevAnswerStates, newAnswerState]);
+  }
+
   const ctxValue = {
     quizItems,
     answerState,
     onSaveQuizItems: handleSaveQuizItems,
+    onSaveAnswerState: handleSaveAnswerState,
   };
 
   return (
