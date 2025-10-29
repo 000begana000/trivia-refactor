@@ -4,10 +4,22 @@ import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
 export default function Quiz() {
-  const { quizItems, answerState } = useContext(QuizContext);
+  const { quizItems, answerState, onSaveAnswerState } = useContext(QuizContext);
   const { player } = useContext(PlayerContext);
 
   const activeQuestionIndex = answerState.length;
+  // compare answer state if it's correct or wrong
+  function handleCheckAnswers(answer) {
+    const correctAnswer =
+      quizItems[activeQuestionIndex].correct_answer.toLowerCase();
+    const playerAnswer = answer.toLowerCase();
+
+    if (correctAnswer === playerAnswer) {
+      onSaveAnswerState("correct");
+    } else {
+      onSaveAnswerState("wrong");
+    }
+  }
   // display next question
 
   return (
@@ -20,8 +32,8 @@ export default function Quiz() {
       <div>
         {quizItems && <p>{quizItems[activeQuestionIndex].question}</p>}
         <p>
-          <button>True</button>
-          <button>False</button>
+          <button onClick={() => handleCheckAnswers("true")}>True</button>
+          <button onClick={() => handleCheckAnswers("false")}>False</button>
         </p>
       </div>
     </>
