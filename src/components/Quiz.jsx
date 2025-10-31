@@ -5,7 +5,7 @@ import { QuizContext } from "../store/quiz-context";
 
 export default function Quiz() {
   const { quizItems, answerState, onSaveAnswerState } = useContext(QuizContext);
-  const { player } = useContext(PlayerContext);
+  const { player, onIncreaseCurrentScore } = useContext(PlayerContext);
 
   const activeQuestionIndex = answerState.length;
   // compare answer state if it's correct or wrong
@@ -15,12 +15,17 @@ export default function Quiz() {
     const playerAnswer = answer.toLowerCase();
 
     if (correctAnswer === playerAnswer) {
-      onSaveAnswerState("correct");
+      handleCorrectAnswer();
     } else {
       onSaveAnswerState("wrong");
     }
   }
   // display next question
+
+  function handleCorrectAnswer() {
+    onSaveAnswerState("correct");
+    onIncreaseCurrentScore();
+  }
 
   return (
     <>
