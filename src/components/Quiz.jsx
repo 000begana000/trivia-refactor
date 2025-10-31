@@ -1,14 +1,19 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
 export default function Quiz() {
+  const [playerLife, setPlayerLife] = useState(5);
+
+  // Import states & functions from contexts
   const { quizItems, answerState, onSaveAnswerState } = useContext(QuizContext);
   const { player, onIncreaseCurrentScore } = useContext(PlayerContext);
 
+  // Current Question Index
   const activeQuestionIndex = answerState.length;
-  // compare answer state if it's correct or wrong
+
+  // Update Current score, Plyer life, Answer state
   function handleCheckAnswers(answer) {
     const correctAnswer =
       quizItems[activeQuestionIndex].correct_answer.toLowerCase();
@@ -20,8 +25,8 @@ export default function Quiz() {
       onSaveAnswerState("wrong");
     }
   }
-  // display next question
 
+  // Correct Answer
   function handleCorrectAnswer() {
     onSaveAnswerState("correct");
     onIncreaseCurrentScore();
