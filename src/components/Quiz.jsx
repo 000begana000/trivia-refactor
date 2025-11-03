@@ -22,7 +22,7 @@ export default function Quiz() {
     if (correctAnswer === playerAnswer) {
       handleCorrectAnswer();
     } else {
-      onSaveAnswerState("wrong");
+      handleWrongAnswer();
     }
   }
 
@@ -32,10 +32,16 @@ export default function Quiz() {
     onIncreaseCurrentScore();
   }
 
+  function handleWrongAnswer() {
+    onSaveAnswerState("wrong");
+    setPlayerLife(prevState => (prevState -= 1));
+  }
+
   return (
     <>
       <div>
         <p>player name:{player.playerName}</p>
+        <p>player life: {playerLife}</p>
         <p>current score: {player.currentScore}</p>
         <p>highs score: {player.highScore}</p>
       </div>
