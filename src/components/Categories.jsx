@@ -15,10 +15,11 @@ const CATEGORIES = [
   { id: 31, name: "Japanese Anime & Manga" },
 ];
 
+let playedCategories = [];
+
 export default function Categories({ onChangePage }) {
   const [categoryId, setCategoryId] = useState("");
   const [categoryName, setCategoryName] = useState("");
-  const [playedCategories, setPlayedCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -56,9 +57,9 @@ export default function Categories({ onChangePage }) {
   }
 
   function handleStartGame() {
-    // save played category ids
-    setPlayedCategories(prevCategories => [...prevCategories, categoryId]);
-
+    if (!playedCategories.includes(categoryId)) {
+      playedCategories.push(categoryId);
+    }
     onChangePage("quiz");
   }
 
@@ -69,14 +70,19 @@ export default function Categories({ onChangePage }) {
       <ul>
         {CATEGORIES.map(category => (
           <li key={category.id}>
-            <button onClick={() => handleSelectCategoryName(category)}>
+            <button
+              disabled={playedCategories.includes(category.id)}
+              onClick={() => handleSelectCategoryName(category)}
+            >
               {category.name}
             </button>
           </li>
         ))}
       </ul>
       {categoryName && <p>You've selected "{categoryName}" category</p>}
-      <button onClick={handleStartGame}>Start new game</button>
+      <button disabled={!categoryId} onClick={handleStartGame}>
+        Start new game
+      </button>
     </div>
   );
 }
