@@ -37,6 +37,12 @@ export default function Quiz() {
     setPlayerLife(prevState => (prevState -= 1));
   }
 
+  if (playerLife === 0) {
+    return <h1>Game Over</h1>;
+  } else if (activeQuestionIndex === 10 && playerLife >= 1) {
+    return <h1>Quiz Is Complete</h1>;
+  }
+
   return (
     <>
       <div>
