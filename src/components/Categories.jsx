@@ -15,15 +15,14 @@ const CATEGORIES = [
   { id: 31, name: "Japanese Anime & Manga" },
 ];
 
-let playedCategories = [];
-
 export default function Categories({ onChangePage }) {
   const [categoryId, setCategoryId] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const { onSaveQuizItems } = useContext(QuizContext);
+  const { onSaveQuizItems, playedCategories, onSavePlayedCategory } =
+    useContext(QuizContext);
   const { player } = useContext(PlayerContext);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ export default function Categories({ onChangePage }) {
 
   function handleStartGame() {
     if (!playedCategories.includes(categoryId)) {
-      playedCategories.push(categoryId);
+      onSavePlayedCategory(categoryId);
     }
     onChangePage("quiz");
   }
