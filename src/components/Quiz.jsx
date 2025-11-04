@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
-export default function Quiz() {
+export default function Quiz({ onChangePage }) {
   const [playerLife, setPlayerLife] = useState(5);
 
   // Import states & functions from contexts
@@ -11,7 +11,7 @@ export default function Quiz() {
   const { player, onIncreaseCurrentScore } = useContext(PlayerContext);
 
   // Current Question Index
-  const activeQuestionIndex = answerState.length;
+  let activeQuestionIndex = answerState.length;
 
   // Update Current score, Plyer life, Answer state
   function handleCheckAnswers(answer) {
@@ -26,21 +26,29 @@ export default function Quiz() {
     }
   }
 
-  // Correct Answer
+  // if orrect Answer
   function handleCorrectAnswer() {
     onSaveAnswerState("correct");
     onIncreaseCurrentScore();
   }
 
+  // if Wrong Answer
   function handleWrongAnswer() {
     onSaveAnswerState("wrong");
     setPlayerLife(prevState => (prevState -= 1));
   }
 
-  if (playerLife === 0) {
-    return <h1>Game Over</h1>;
-  } else if (activeQuestionIndex === 10 && playerLife >= 1) {
-    return <h1>Quiz Is Complete</h1>;
+  function handleChangePage() {
+    onChangePage("categories");
+  }
+
+  if (playerLife >= 1 && activeQuestionIndex === 3) {
+    return (
+      <>
+        <h1>Quiz Complete</h1>
+        <button onClick={handleChangePage}>Continue Play</button>
+      </>
+    );
   }
 
   return (
