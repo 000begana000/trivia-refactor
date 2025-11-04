@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
+import QuestionTimer from "./QuestionTimer";
 import GameOver from "./GameOver";
 
 export default function Quiz({ onChangePage }) {
@@ -67,6 +68,7 @@ export default function Quiz({ onChangePage }) {
       </div>
       <div>
         {quizItems && <p>{quizItems[activeQuestionIndex].question}</p>}
+        <QuestionTimer />
         <p>
           <button onClick={() => handleCheckAnswers("true")}>True</button>
           <button onClick={() => handleCheckAnswers("false")}>False</button>
