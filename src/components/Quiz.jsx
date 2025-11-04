@@ -3,6 +3,8 @@ import { useContext, useState } from "react";
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
+import GameOver from "./GameOver";
+
 export default function Quiz({ onChangePage }) {
   const [playerLife, setPlayerLife] = useState(5);
 
@@ -42,7 +44,11 @@ export default function Quiz({ onChangePage }) {
     onChangePage("categories");
   }
 
-  if (playerLife >= 1 && activeQuestionIndex === 3) {
+  if (playerLife === 0) {
+    return <GameOver onChangePage={onChangePage} />;
+  }
+
+  if (playerLife >= 1 && activeQuestionIndex === 10) {
     return (
       <>
         <h1>Quiz Complete</h1>
