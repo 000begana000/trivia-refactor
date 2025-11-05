@@ -68,7 +68,7 @@ export default function Quiz({ onChangePage }) {
       </div>
       <div>
         {quizItems && <p>{quizItems[activeQuestionIndex].question}</p>}
-        <QuestionTimer />
+        <QuestionTimer key={activeQuestionIndex} />
         <p>
           <button onClick={() => handleCheckAnswers("true")}>True</button>
           <button onClick={() => handleCheckAnswers("false")}>False</button>
