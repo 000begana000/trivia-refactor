@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useCallback } from "react";
 
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
@@ -16,7 +16,7 @@ export default function Quiz({ onChangePage }) {
   // Current Question Index
   let activeQuestionIndex = answerState.length;
 
-  // Update Current score, Plyer life, Answer state
+  // Update Current score, Player life, Answer state
   function handleCheckAnswers(answer) {
     const correctAnswer =
       quizItems[activeQuestionIndex].correct_answer.toLowerCase();
@@ -41,6 +41,13 @@ export default function Quiz({ onChangePage }) {
     setPlayerLife(prevState => (prevState -= 1));
   }
 
+  // if Skipped Answer
+  function handleSkipAnswer() {
+    onSaveAnswerState("skipped");
+    setPlayerLife(prevState => (prevState -= 1));
+  }
+
+  // Change page to categories
   function handleChangePage() {
     onChangePage("categories");
   }
@@ -68,7 +75,10 @@ export default function Quiz({ onChangePage }) {
       </div>
       <div>
         {quizItems && <p>{quizItems[activeQuestionIndex].question}</p>}
-        <QuestionTimer key={activeQuestionIndex} />
+        <QuestionTimer
+          key={activeQuestionIndex}
+          onSkipAnswer={handleSkipAnswer}
+        />
         <p>
           <button onClick={() => handleCheckAnswers("true")}>True</button>
           <button onClick={() => handleCheckAnswers("false")}>False</button>
