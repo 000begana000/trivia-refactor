@@ -10,11 +10,15 @@ export default function Quiz({ onChangePage }) {
   const [playerLife, setPlayerLife] = useState(5);
 
   // Import states & functions from contexts
-  const { quizItems, answerState, onSaveAnswerState } = useContext(QuizContext);
+  const { quizItems, playerAnswers, answerState, onSaveAnswer } =
+    useContext(QuizContext);
   const { player, onIncreaseCurrentScore } = useContext(PlayerContext);
 
   // Current Question Index
-  let activeQuestionIndex = answerState.length;
+  let activeQuestionIndex = playerAnswers.length;
+
+  // Timer
+  let timer = 10000;
 
   // Update Current score, Player life, Answer state
   function handleCheckAnswers(answer) {
@@ -31,13 +35,15 @@ export default function Quiz({ onChangePage }) {
 
   // if orrect Answer
   function handleCorrectAnswer() {
-    onSaveAnswerState("correct");
+    timer = 2000;
+    onSaveAnswer("correct");
     onIncreaseCurrentScore();
   }
 
   // if Wrong Answer
   function handleWrongAnswer() {
-    onSaveAnswerState("wrong");
+    timer = 2000;
+    onSaveAnswer("wrong");
     setPlayerLife(prevState => (prevState -= 1));
   }
 
@@ -78,6 +84,7 @@ export default function Quiz({ onChangePage }) {
         <QuestionTimer
           key={activeQuestionIndex}
           onSkipAnswer={handleSkipAnswer}
+          timeout={timer}
         />
         <p>
           <button onClick={() => handleCheckAnswers("true")}>True</button>

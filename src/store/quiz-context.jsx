@@ -3,9 +3,10 @@ import { createContext, useState } from "react";
 export const QuizContext = createContext({
   quizItems: [],
   playedCategories: [],
-  answerState: [],
+  playerAnswers: [],
+  answerState: "unanswered",
   onSaveQuizItems: resData => {},
-  onSaveAnswerState: newAnswerState => {},
+  onSaveAnswer: newAnswer => {},
   onSavePlayedCategory: newCategory => {},
   onResetPlayedCategory: () => {},
 });
@@ -13,14 +14,15 @@ export const QuizContext = createContext({
 export default function QuizContextProvider({ children }) {
   const [quizItems, setQuizItems] = useState([]);
   const [playedCategories, setPlayedCategories] = useState([]);
-  const [answerState, setAnswerState] = useState([]);
+  const [playerAnswers, setPlayerAnswers] = useState([]);
+  const [answerState, setAnswerState] = useState("unanswered");
 
   function handleSaveQuizItems(resData) {
     setQuizItems(resData);
   }
 
-  function handleSaveAnswerState(newAnswerState) {
-    setAnswerState(prevAnswerStates => [...prevAnswerStates, newAnswerState]);
+  function handleSaveAnswer(newAnswer) {
+    setPlayerAnswers(prevAnswers => [...prevAnswers, newAnswer]);
   }
 
   function handleSavePlayedCategory(newCategory) {
@@ -34,9 +36,10 @@ export default function QuizContextProvider({ children }) {
   const ctxValue = {
     quizItems,
     playedCategories,
+    playerAnswers,
     answerState,
     onSaveQuizItems: handleSaveQuizItems,
-    onSaveAnswerState: handleSaveAnswerState,
+    onSaveAnswer: handleSaveAnswer,
     onSavePlayedCategory: handleSavePlayedCategory,
     onResetPlayedCategory: handleResetPlayedCategories,
   };
