@@ -8,13 +8,15 @@ import GameOver from "./GameOver";
 
 export default function Quiz({ onChangePage }) {
   const [playerLife, setPlayerLife] = useState(5);
+  const [answerState, setAnswerState] = useState("unanswered");
 
   // Import states & functions from contexts
   const { quizItems, answers, onSaveAnswer } = useContext(QuizContext);
   const { player, onIncreaseCurrentScore } = useContext(PlayerContext);
 
   // Current Question Index
-  let activeQuestionIndex = answers.length;
+  let activeQuestionIndex =
+    answerState === "unanswered" ? answers.length : answers.length - 1;
 
   // Timer
   let timer = 10000;
@@ -24,23 +26,31 @@ export default function Quiz({ onChangePage }) {
     const correctAnswer =
       quizItems[activeQuestionIndex].correct_answer.toLowerCase();
     const playerAnswer = answer.toLowerCase();
+    setAnswerState("answered");
 
-    if (correctAnswer === playerAnswer) {
-      handleCorrectAnswer();
-    } else {
-      handleWrongAnswer("wrong");
-    }
+    onSaveAnswer(answer);
+
+    setTimeout(() => {
+      if (correctAnswer === playerAnswer) {
+        handleCorrectAnswer();
+      } else {
+        handleWrongAnswer();
+      }
+      setTimeout(() => {
+        setAnswerState("unanswered");
+      }, 2000);
+    }, 1000);
   }
 
   // if orrect Answer
   function handleCorrectAnswer() {
-    onSaveAnswer("correct");
+    setAnswerState("correct");
     onIncreaseCurrentScore();
   }
 
   // if Wrong Answer
   function handleWrongAnswer() {
-    onSaveAnswer("wrong");
+    setAnswerState("wrong");
     setPlayerLife(prevState => (prevState -= 1));
   }
 
