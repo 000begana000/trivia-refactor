@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 
-export default function QuestionTimer({ onSkipAnswer }) {
-  const [remainingTime, setRemainingTime] = useState(10000);
+export default function QuestionTimer({ onSkipAnswer, timeout }) {
+  const [remainingTime, setRemainingTime] = useState(timeout);
 
   // Skip answer
   useEffect(() => {
     const timer = setTimeout(() => {
       onSkipAnswer();
-    }, 10000);
+    }, timeout);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [onSkipAnswer]);
+  }, [onSkipAnswer, timeout]);
 
   // Reduce remaining time
   useEffect(() => {
@@ -25,5 +25,5 @@ export default function QuestionTimer({ onSkipAnswer }) {
     };
   }, []);
 
-  return <progress max={10000} value={remainingTime} />;
+  return <progress max={timeout} value={remainingTime} />;
 }
