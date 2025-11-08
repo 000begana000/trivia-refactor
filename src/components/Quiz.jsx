@@ -102,8 +102,18 @@ export default function Quiz({ onChangePage }) {
           timeout={timer}
         />
         <p>
-          <button onClick={() => handleCheckAnswers("true")}>True</button>
-          <button onClick={() => handleCheckAnswers("false")}>False</button>
+          <button
+            disabled={answerState !== "unanswered"}
+            onClick={() => handleCheckAnswers("true")}
+          >
+            True
+          </button>
+          <button
+            disabled={answerState !== "unanswered"}
+            onClick={() => handleCheckAnswers("false")}
+          >
+            False
+          </button>
         </p>
       </div>
     </>
