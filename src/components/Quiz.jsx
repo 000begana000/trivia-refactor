@@ -21,6 +21,14 @@ export default function Quiz({ onChangePage }) {
   // Timer
   let timer = 10000;
 
+  if (answerState === "answered") {
+    timer = 1000;
+  }
+
+  if (answerState !== "unanswered") {
+    timer = 2000;
+  }
+
   // Update Current score, Player life, Answer state
   function handleCheckAnswers(answer) {
     const correctAnswer =
@@ -89,7 +97,7 @@ export default function Quiz({ onChangePage }) {
       <div>
         {quizItems && <p>{quizItems[activeQuestionIndex].question}</p>}
         <QuestionTimer
-          key={activeQuestionIndex}
+          key={timer}
           onSkipAnswer={handleSkipAnswer}
           timeout={timer}
         />
