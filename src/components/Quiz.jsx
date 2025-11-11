@@ -1,4 +1,4 @@
-import { useContext, useState, useCallback } from "react";
+import { useContext, useState } from "react";
 
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
@@ -36,7 +36,12 @@ export default function Quiz({ onChangePage }) {
     const playerAnswer = answer.toLowerCase();
     setAnswerState("answered");
 
-    onSaveAnswer(answer);
+    // Save answers
+    if (correctAnswer === playerAnswer) {
+      onSaveAnswer("correct");
+    } else {
+      onSaveAnswer("wrong");
+    }
 
     setTimeout(() => {
       if (correctAnswer === playerAnswer) {
@@ -73,10 +78,12 @@ export default function Quiz({ onChangePage }) {
     onChangePage("categories");
   }
 
+  // Game over
   if (playerLife === 0) {
     return <GameOver onChangePage={onChangePage} />;
   }
 
+  // Quiz Complete
   if (playerLife >= 1 && activeQuestionIndex === 10) {
     return (
       <>
