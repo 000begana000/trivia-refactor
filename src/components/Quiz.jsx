@@ -36,7 +36,7 @@ export default function Quiz({ onChangePage }) {
     const playerAnswer = answer.toLowerCase();
     setAnswerState("answered");
 
-    // Save answers
+    // Save answers ====> why it works like this? why can't add it to the timeout if state?
     if (correctAnswer === playerAnswer) {
       onSaveAnswer("correct");
     } else {
