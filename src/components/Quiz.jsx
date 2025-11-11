@@ -110,12 +110,22 @@ export default function Quiz({ onChangePage }) {
         />
         <p>
           <button
+            className={
+              answerState === "correct" || answerState === "wrong"
+                ? answerState
+                : undefined
+            }
             disabled={answerState !== "unanswered"}
             onClick={() => handleCheckAnswers("true")}
           >
             True
           </button>
           <button
+            className={
+              answerState === "correct" || answerState === "wrong"
+                ? answerState
+                : undefined
+            }
             disabled={answerState !== "unanswered"}
             onClick={() => handleCheckAnswers("false")}
           >
