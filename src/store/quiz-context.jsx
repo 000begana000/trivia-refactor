@@ -8,6 +8,7 @@ export const QuizContext = createContext({
   onSavePlayedCategory: newCategory => {},
   onSaveAnswer: newAnswer => {},
   onResetPlayedCategory: () => {},
+  onResetAnswers: () => {},
 });
 
 export default function QuizContextProvider({ children }) {
@@ -18,6 +19,7 @@ export default function QuizContextProvider({ children }) {
   function handleSaveQuizItems(resData) {
     setQuizItems(resData);
   }
+
   function handleSavePlayedCategory(newCategory) {
     setPlayedCategories(prevCategories => [...prevCategories, newCategory]);
   }
@@ -30,6 +32,10 @@ export default function QuizContextProvider({ children }) {
     setPlayedCategories([]);
   }
 
+  function handleResetAnswers() {
+    setAnswers([]);
+  }
+
   const ctxValue = {
     quizItems,
     answers,
@@ -38,6 +44,7 @@ export default function QuizContextProvider({ children }) {
     onSavePlayedCategory: handleSavePlayedCategory,
     onSaveAnswer: handleSaveAnswer,
     onResetPlayedCategory: handleResetPlayedCategories,
+    onResetAnswers: handleResetAnswers,
   };
 
   return (
