@@ -4,6 +4,7 @@ import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
 import QuestionTimer from "./QuestionTimer";
+import QuizComplete from "./QuizComplete";
 import GameOver from "./GameOver";
 
 export default function Quiz({ onChangePage }) {
@@ -73,24 +74,14 @@ export default function Quiz({ onChangePage }) {
     setPlayerLife(prevState => (prevState -= 1));
   }
 
-  // Change page to categories
-  function handleChangePage() {
-    onChangePage("categories");
-  }
-
   // Game over
   if (playerLife === 0) {
     return <GameOver onChangePage={onChangePage} />;
   }
 
   // Quiz Complete
-  if (playerLife >= 1 && activeQuestionIndex === 10) {
-    return (
-      <>
-        <h1>Quiz Complete</h1>
-        <button onClick={handleChangePage}>Continue Play</button>
-      </>
-    );
+  if (playerLife >= 1 && activeQuestionIndex === 3) {
+    return <QuizComplete onChangePage={onChangePage} />;
   }
 
   return (
