@@ -4,7 +4,7 @@ import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
 import QuestionTimer from "./QuestionTimer";
-import QuizComplete from "./QuizComplete";
+import ContinueQuiz from "./ContinueQuiz";
 import GameOver from "./GameOver";
 
 export default function Quiz({ onChangePage }) {
@@ -81,7 +81,7 @@ export default function Quiz({ onChangePage }) {
 
   // Quiz Complete
   if (playerLife >= 1 && activeQuestionIndex === 3) {
-    return <QuizComplete onChangePage={onChangePage} />;
+    return <ContinueQuiz onChangePage={onChangePage} />;
   }
 
   return (
