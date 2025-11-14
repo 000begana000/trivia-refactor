@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useCallback } from "react";
 
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
@@ -8,71 +8,65 @@ import ContinueQuiz from "./ContinueQuiz";
 import GameOver from "./GameOver";
 
 export default function Quiz({ onChangePage }) {
+  const [currentScore, setCurrentScore] = useState(0);
   const [playerLife, setPlayerLife] = useState(5);
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [answerState, setAnswerState] = useState("unanswered");
 
   // Import states & functions from contexts
-  const { quizItems, answers, onSaveAnswer } = useContext(QuizContext);
-  const { player, onIncreaseCurrentScore } = useContext(PlayerContext);
+  const { quizItems } = useContext(QuizContext);
+  const { player } = useContext(PlayerContext);
 
   // Current Question Index
   let activeQuestionIndex =
-    answerState === "unanswered" ? answers.length : answers.length - 1;
+    answerState === "unanswered"
+      ? selectedAnswers.length
+      : selectedAnswers.length - 1;
 
-  // Timer
+  // Initial timer
   let timer = 10000;
 
+  // Timer after user
   if (answerState === "answered") {
     timer = 1000;
   }
 
-  if (answerState !== "unanswered") {
+  if (answerState === "correct" || answerState === "wrong") {
     timer = 2000;
   }
 
-  // Update Current score, Player life, Answer state
-  function handleCheckAnswers(answer) {
-    const correctAnswer =
-      quizItems[activeQuestionIndex].correct_answer.toLowerCase();
-    const playerAnswer = answer.toLowerCase();
+  const handleSelectAnswer = useCallback(function handleSelectAnswer(
+    newAnswer
+  ) {
     setAnswerState("answered");
 
-    // Save answers ====> why it works like this? why can't add it to the timeout if state?
-    if (correctAnswer === playerAnswer) {
-      onSaveAnswer("correct");
-    } else {
-      onSaveAnswer("wrong");
-    }
+    setSelectedAnswers(prevAnswers => [...prevAnswers, newAnswer]);
+
+    const selectedAnswerLowcase = newAnswer.toLowerCase();
+    const correctedAnswerLowcase =
+      quizItems[activeQuestionIndex].correct_answer.toLowerCase();
 
     setTimeout(() => {
-      if (correctAnswer === playerAnswer) {
-        handleCorrectAnswer();
+      if (selectedAnswerLowcase === correctedAnswerLowcase) {
+        setAnswerState("correct");
+        setCurrentScore(prevScore => prevScore + 100);
       } else {
-        handleWrongAnswer();
+        setAnswerState("wrong");
+        setPlayerLife(prevLife => prevLife - 1);
       }
       setTimeout(() => {
         setAnswerState("unanswered");
       }, 2000);
     }, 1000);
-  }
+  },
+  []);
 
-  // if orrect Answer
-  function handleCorrectAnswer() {
-    setAnswerState("correct");
-    onIncreaseCurrentScore();
-  }
-
-  // if Wrong Answer
-  function handleWrongAnswer() {
-    setAnswerState("wrong");
-    setPlayerLife(prevState => (prevState -= 1));
-  }
-
-  // if Skipped Answer
-  function handleSkipAnswer() {
-    onSaveAnswer("skipped");
-    setPlayerLife(prevState => (prevState -= 1));
-  }
+  const handleSkipAnswer = useCallback(
+    function handleSkipAnswer() {
+      handleSelectAnswer("skipped");
+    },
+    [handleSelectAnswer]
+  );
 
   // Game over
   if (playerLife === 0) {
@@ -81,7 +75,12 @@ export default function Quiz({ onChangePage }) {
 
   // Quiz Complete
   if (playerLife >= 1 && activeQuestionIndex === 3) {
-    return <ContinueQuiz onChangePage={onChangePage} />;
+    return (
+      <ContinueQuiz
+        onChangePage={onChangePage}
+        selectedAnswers={selectedAnswers}
+      />
+    );
   }
 
   return (
@@ -89,15 +88,15 @@ export default function Quiz({ onChangePage }) {
       <div>
         <p>player name:{player.playerName}</p>
         <p>player life: {playerLife}</p>
-        <p>current score: {player.currentScore}</p>
+        <p>current score: {currentScore}</p>
         <p>highs score: {player.highScore}</p>
       </div>
       <div>
         {quizItems && <p>{quizItems[activeQuestionIndex].question}</p>}
         <QuestionTimer
           key={timer}
-          onSkipAnswer={handleSkipAnswer}
           timeout={timer}
+          onTimeout={handleSkipAnswer}
         />
         <p>
           <button
@@ -107,7 +106,7 @@ export default function Quiz({ onChangePage }) {
                 : undefined
             }
             disabled={answerState !== "unanswered"}
-            onClick={() => handleCheckAnswers("true")}
+            onClick={() => handleSelectAnswer("true")}
           >
             True
           </button>
@@ -118,7 +117,7 @@ export default function Quiz({ onChangePage }) {
                 : undefined
             }
             disabled={answerState !== "unanswered"}
-            onClick={() => handleCheckAnswers("false")}
+            onClick={() => handleSelectAnswer("false")}
           >
             False
           </button>

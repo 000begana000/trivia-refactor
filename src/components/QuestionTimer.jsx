@@ -1,24 +1,28 @@
 import { useState, useEffect } from "react";
 
-export default function QuestionTimer({ onSkipAnswer, timeout }) {
+export default function QuestionTimer({ onTimeout, timeout }) {
   const [remainingTime, setRemainingTime] = useState(timeout);
 
   // Skip answer
   useEffect(() => {
     const timer = setTimeout(() => {
-      onSkipAnswer();
+      onTimeout();
     }, timeout);
+
+    console.log("timeout");
 
     return () => {
       clearTimeout(timer);
     };
-  }, [onSkipAnswer, timeout]);
+  }, [onTimeout, timeout]);
 
   // Reduce remaining time
   useEffect(() => {
     const interval = setInterval(() => {
       setRemainingTime(prevTime => prevTime - 100);
     }, 100);
+
+    console.log("interval");
 
     return () => {
       clearInterval(interval);
