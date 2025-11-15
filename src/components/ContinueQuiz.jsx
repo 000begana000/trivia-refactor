@@ -14,12 +14,30 @@ export default function ContinueQuiz({ onChangePage, selectedAnswers }) {
   return (
     <>
       <h1>Quiz Complete</h1>
-      {quizItems.map(item => (
-        <p key={item.question}>{item.question}</p>
-      ))}
-      {selectedAnswers.map((answer, index) => (
-        <p key={index}>{answer}</p>
-      ))}
+      <div>
+        {quizItems.map((item, index) => {
+          const question = item.question;
+          const selectedAnswer = selectedAnswers[index];
+          const correctAnswer = quizItems[index].correct_answer.toLowerCase();
+
+          let cssClass;
+
+          if (selectedAnswer === correctAnswer) {
+            cssClass = "correct";
+          } else if (selectedAnswer === "skipped") {
+            cssClass = "skipped";
+          } else {
+            cssClass = "wrong";
+          }
+
+          return (
+            <div className="flex justify-spacebetween" key={question}>
+              <p>{question}</p>
+              <p className={cssClass}>{selectedAnswer}</p>
+            </div>
+          );
+        })}
+      </div>
       <button onClick={handleChangePage}>Continue Play</button>
     </>
   );
