@@ -42,12 +42,11 @@ export default function Quiz({ onChangePage }) {
 
     setSelectedAnswers(prevAnswers => [...prevAnswers, newAnswer]);
 
-    const selectedAnswerLowcase = newAnswer.toLowerCase();
     const correctedAnswerLowcase =
       quizItems[activeQuestionIndex].correct_answer.toLowerCase();
 
     setTimeout(() => {
-      if (selectedAnswerLowcase === correctedAnswerLowcase) {
+      if (newAnswer === correctedAnswerLowcase) {
         setAnswerState("correct");
         setCurrentScore(prevScore => prevScore + 100);
       } else {
@@ -101,7 +100,9 @@ export default function Quiz({ onChangePage }) {
         <p>
           <button
             className={
-              answerState === "correct" || answerState === "wrong"
+              answerState === "correct" ||
+              answerState === "wrong" ||
+              answerState === "answered"
                 ? answerState
                 : undefined
             }
@@ -112,7 +113,9 @@ export default function Quiz({ onChangePage }) {
           </button>
           <button
             className={
-              answerState === "correct" || answerState === "wrong"
+              answerState === "correct" ||
+              answerState === "wrong" ||
+              answerState === "answered"
                 ? answerState
                 : undefined
             }
