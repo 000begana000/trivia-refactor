@@ -67,17 +67,22 @@ export default function Quiz({ onChangePage }) {
     [handleSelectAnswer]
   );
 
+  function handleResetAnswers() {
+    setSelectedAnswers([]);
+  }
+
   // Game over
   if (playerLife === 0) {
     return <GameOver onChangePage={onChangePage} currentScore={currentScore} />;
   }
 
   // Quiz Complete
-  if (playerLife >= 1 && activeQuestionIndex === 10) {
+  if (playerLife >= 1 && activeQuestionIndex === 3) {
     return (
       <ContinueQuiz
         onChangePage={onChangePage}
         selectedAnswers={selectedAnswers}
+        onResetAnswers={handleResetAnswers}
       />
     );
   }

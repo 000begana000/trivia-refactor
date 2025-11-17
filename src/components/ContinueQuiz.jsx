@@ -2,7 +2,11 @@ import { useContext } from "react";
 
 import { QuizContext } from "../store/quiz-context";
 
-export default function ContinueQuiz({ onChangePage, selectedAnswers }) {
+export default function ContinueQuiz({
+  onChangePage,
+  selectedAnswers,
+  onResetAnswers,
+}) {
   const { quizItems } = useContext(QuizContext);
 
   // Change page to categories
