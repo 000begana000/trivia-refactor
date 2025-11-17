@@ -14,7 +14,8 @@ export default function Quiz({ onChangePage }) {
 
   // Import states & functions from contexts
   const { quizItems } = useContext(QuizContext);
-  const { player, onReducePlayerLife } = useContext(PlayerContext);
+  const { player, onReducePlayerLife, onIncreaseCurrentScore } =
+    useContext(PlayerContext);
 
   // Current Question Index
   let activeQuestionIndex =
@@ -46,7 +47,7 @@ export default function Quiz({ onChangePage }) {
       setTimeout(() => {
         if (newAnswer === correctedAnswerLowcase) {
           setAnswerState("correct");
-          setCurrentScore(prevScore => prevScore + 100);
+          onIncreaseCurrentScore();
         } else {
           setAnswerState("wrong");
           onReducePlayerLife();
@@ -92,7 +93,7 @@ export default function Quiz({ onChangePage }) {
       <div>
         <p>player name:{player.playerName}</p>
         <p>player life: {player.playerLife}</p>
-        <p>current score: {currentScore}</p>
+        <p>current score: {player.currentScore}</p>
         <p>highs score: {player.highScore}</p>
       </div>
       <div>
