@@ -35,30 +35,30 @@ export default function Quiz({ onChangePage }) {
     timer = 2000;
   }
 
-  const handleSelectAnswer = useCallback(function handleSelectAnswer(
-    newAnswer
-  ) {
-    setAnswerState("answered");
+  const handleSelectAnswer = useCallback(
+    function handleSelectAnswer(newAnswer) {
+      setAnswerState("answered");
 
-    setSelectedAnswers(prevAnswers => [...prevAnswers, newAnswer]);
+      setSelectedAnswers(prevAnswers => [...prevAnswers, newAnswer]);
 
-    const correctedAnswerLowcase =
-      quizItems[activeQuestionIndex].correct_answer.toLowerCase();
+      const correctedAnswerLowcase =
+        quizItems[activeQuestionIndex].correct_answer.toLowerCase();
 
-    setTimeout(() => {
-      if (newAnswer === correctedAnswerLowcase) {
-        setAnswerState("correct");
-        setCurrentScore(prevScore => prevScore + 100);
-      } else {
-        setAnswerState("wrong");
-        setPlayerLife(prevLife => prevLife - 1);
-      }
       setTimeout(() => {
-        setAnswerState("unanswered");
-      }, 2000);
-    }, 1000);
-  },
-  []);
+        if (newAnswer === correctedAnswerLowcase) {
+          setAnswerState("correct");
+          setCurrentScore(prevScore => prevScore + 100);
+        } else {
+          setAnswerState("wrong");
+          setPlayerLife(prevLife => prevLife - 1);
+        }
+        setTimeout(() => {
+          setAnswerState("unanswered");
+        }, 2000);
+      }, 1000);
+    },
+    [quizItems, activeQuestionIndex]
+  );
 
   const handleSkipAnswer = useCallback(
     function handleSkipAnswer() {
@@ -69,11 +69,11 @@ export default function Quiz({ onChangePage }) {
 
   // Game over
   if (playerLife === 0) {
-    return <GameOver onChangePage={onChangePage} />;
+    return <GameOver onChangePage={onChangePage} currentScore={currentScore} />;
   }
 
   // Quiz Complete
-  if (playerLife >= 1 && activeQuestionIndex === 3) {
+  if (playerLife >= 1 && activeQuestionIndex === 10) {
     return (
       <ContinueQuiz
         onChangePage={onChangePage}
