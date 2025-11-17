@@ -5,6 +5,7 @@ export const PlayerContext = createContext({
   onCreatePlayer: () => {},
   onReducePlayerLife: () => {},
   onIncreaseCurrentScore: () => {},
+  onResetPlayer: () => {},
 });
 
 export default function PlayerContextProvider({ children }) {
@@ -34,11 +35,16 @@ export default function PlayerContextProvider({ children }) {
     }));
   }
 
+  function handleResetPlayer() {
+    setPlayer(prevState => ({ ...prevState, playerLife: 5, currentScore: 0 }));
+  }
+
   const ctxValue = {
     player,
     onCreatePlayer: handleCreatePlayer,
     onReducePlayerLife: handleReducePlayerLife,
     onIncreaseCurrentScore: handleIncreaseCurrentScore,
+    onResetPlayer: handleResetPlayer,
   };
 
   return (
