@@ -9,13 +9,12 @@ import GameOver from "./GameOver";
 
 export default function Quiz({ onChangePage }) {
   const [currentScore, setCurrentScore] = useState(0);
-  const [playerLife, setPlayerLife] = useState(5);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [answerState, setAnswerState] = useState("unanswered");
 
   // Import states & functions from contexts
   const { quizItems } = useContext(QuizContext);
-  const { player } = useContext(PlayerContext);
+  const { player, onReducePlayerLife } = useContext(PlayerContext);
 
   // Current Question Index
   let activeQuestionIndex =
@@ -50,7 +49,7 @@ export default function Quiz({ onChangePage }) {
           setCurrentScore(prevScore => prevScore + 100);
         } else {
           setAnswerState("wrong");
-          setPlayerLife(prevLife => prevLife - 1);
+          onReducePlayerLife();
         }
         setTimeout(() => {
           setAnswerState("unanswered");
@@ -72,14 +71,15 @@ export default function Quiz({ onChangePage }) {
   }
 
   // Game over
-  if (playerLife === 0) {
+  if (player.playerLife === 0) {
     return <GameOver onChangePage={onChangePage} currentScore={currentScore} />;
   }
 
   // Quiz Complete
-  if (playerLife >= 1 && activeQuestionIndex === 3) {
+  if (player.playerLife >= 1 && activeQuestionIndex === 3) {
     return (
       <ContinueQuiz
+        currentScore={currentScore}
         onChangePage={onChangePage}
         selectedAnswers={selectedAnswers}
         onResetAnswers={handleResetAnswers}
@@ -91,7 +91,7 @@ export default function Quiz({ onChangePage }) {
     <>
       <div>
         <p>player name:{player.playerName}</p>
-        <p>player life: {playerLife}</p>
+        <p>player life: {player.playerLife}</p>
         <p>current score: {currentScore}</p>
         <p>highs score: {player.highScore}</p>
       </div>
