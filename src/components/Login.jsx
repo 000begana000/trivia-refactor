@@ -4,20 +4,29 @@ import { PlayerContext } from "../store/player-context";
 
 export default function Login({ onChangePage }) {
   const [selectedPlayerName, setSeletedPlayerName] = useState("");
+  const [validPlayerName, setValidPlayerName] = useState(false);
 
-  const { players, onCreatePlayer, onSelectPlayer } = useContext(PlayerContext);
+  const { players, onCreatePlayer, onSelectPlayer, onSavePlayer } =
+    useContext(PlayerContext);
 
   const playerName = useRef();
 
   function handleSavePlayerName(event) {
     event.preventDefault();
-    onCreatePlayer(playerName.current.value);
-    setSeletedPlayerName(playerName.current.value);
-    console.log(playerName.current.value);
+
+    const newPlayer = playerName.current.value;
+
+    const valid = players.every(player => player.playerName !== newPlayer);
+
+    if (valid) {
+      onCreatePlayer(playerName.current.value);
+      setSeletedPlayerName(playerName.current.value);
+      setValidPlayerName(true);
+      onSavePlayer();
+    }
   }
 
   function handleSelectPlayer(selectedPlayerName) {
-    // select a player
     onSelectPlayer(selectedPlayerName);
     setSeletedPlayerName(selectedPlayerName);
   }
@@ -42,6 +51,8 @@ export default function Login({ onChangePage }) {
           />
           <button type="submit">save</button>
         </div>
+        {!validPlayerName && <p>the player name is already exist</p>}
+        {validPlayerName && <p>player name saved</p>}
       </form>
       <div>
         <h4>Select a player</h4>
