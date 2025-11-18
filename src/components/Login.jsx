@@ -1,8 +1,10 @@
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState } from "react";
 
 import { PlayerContext } from "../store/player-context";
 
 export default function Login({ onChangePage }) {
+  const [invalid, setInvalid] = useState(false);
+
   const { players, onCreatePlayer } = useContext(PlayerContext);
 
   const playerName = useRef();
@@ -19,6 +21,7 @@ export default function Login({ onChangePage }) {
       console.log("valid");
     } else {
       console.log("invalid");
+      setInvalid(true);
       return;
     }
 
@@ -41,6 +44,7 @@ export default function Login({ onChangePage }) {
           />
           <button type="submit">save</button>
         </div>
+        {invalid && <p>player already exists. please choose another name.</p>}
       </form>
       <h3>Or Select A Player</h3>
       {players.length === 0 && <p>there is no player yet</p>}
