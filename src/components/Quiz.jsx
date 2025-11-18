@@ -77,10 +77,9 @@ export default function Quiz({ onChangePage }) {
   }
 
   // Quiz Complete
-  if (player.playerLife >= 1 && activeQuestionIndex === 3) {
+  if (player.playerLife >= 1 && activeQuestionIndex === 10) {
     return (
       <ContinueQuiz
-        currentScore={currentScore}
         onChangePage={onChangePage}
         selectedAnswers={selectedAnswers}
         onResetAnswers={handleResetAnswers}
