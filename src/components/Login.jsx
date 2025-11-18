@@ -27,6 +27,10 @@ export default function Login({ onChangePage }) {
     onChangePage("categories");
   }
 
+  function handleStartNewGame() {
+    onChangePage("categories");
+  }
+
   return (
     <div>
       <h1>Welcome to trivia quiz</h1>
@@ -60,7 +64,13 @@ export default function Login({ onChangePage }) {
           {player.playerName}
         </button>
       ))}
-      {player && <p>you've selected "{player.playerName}"</p>}
+      <div>
+        {player && (
+          <button onClick={handleStartNewGame}>
+            Start new game as "{player.playerName}"
+          </button>
+        )}
+      </div>
     </div>
   );
 }
