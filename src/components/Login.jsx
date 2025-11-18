@@ -18,9 +18,7 @@ export default function Login({ onChangePage }) {
 
     if (valid) {
       onCreatePlayer(playerName.current.value);
-      console.log("valid");
     } else {
-      console.log("invalid");
       setInvalid(true);
       return;
     }
