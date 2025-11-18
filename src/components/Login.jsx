@@ -32,6 +32,7 @@ export default function Login({ onChangePage }) {
         </div>
       </form>
       <h3>Or Select A Player</h3>
+      {players.length === 0 && <p>there is no player yet</p>}
       {players.map(player => (
         <button key={player.playerName}>{player.playerName}</button>
       ))}
