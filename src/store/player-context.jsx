@@ -2,10 +2,7 @@ import { createContext, useState } from "react";
 
 export const PlayerContext = createContext({
   player: { playerName: "", highScore: 0 },
-  players: [],
   onCreatePlayer: () => {},
-  onSavePlayer: () => {},
-  onSelectPlayer: selectedPlayerName => {},
   onReducePlayerLife: () => {},
   onIncreaseCurrentScore: () => {},
   onResetPlayer: () => {},
@@ -25,18 +22,6 @@ export default function PlayerContextProvider({ children }) {
       highScore: 0,
     };
     setPlayer(newPlayer);
-  }
-
-  function handleSavePlayer() {
-    localStorage.setItem("players", JSON.stringify([player, ...players]));
-  }
-
-  function handleSelectPlayer(selectedPlayerName) {
-    const selectedPlayer = players.find(
-      player => player.playerName === selectedPlayerName
-    );
-    console.log(selectedPlayer);
-    setPlayer(selectedPlayer);
   }
 
   function handleReducePlayerLife() {
@@ -59,10 +44,7 @@ export default function PlayerContextProvider({ children }) {
 
   const ctxValue = {
     player,
-    players,
     onCreatePlayer: handleCreatePlayer,
-    onSavePlayer: handleSavePlayer,
-    onSelectPlayer: handleSelectPlayer,
     onReducePlayerLife: handleReducePlayerLife,
     onIncreaseCurrentScore: handleIncreaseCurrentScore,
     onResetPlayer: handleResetPlayer,
