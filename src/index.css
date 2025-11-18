@@ -12,6 +12,18 @@
   background-color: red;
 }
 
+.skipped {
+  background-color: yellow;
+}
+
 .answered {
   background-color: yellow;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-spacebetween {
+  justify-content: space-between;
 }
