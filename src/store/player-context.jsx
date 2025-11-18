@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 export const PlayerContext = createContext({
   player: { playerName: "", highScore: 0 },
+  players: [],
   onCreatePlayer: () => {},
   onReducePlayerLife: () => {},
   onIncreaseCurrentScore: () => {},
@@ -44,6 +45,7 @@ export default function PlayerContextProvider({ children }) {
 
   const ctxValue = {
     player,
+    players,
     onCreatePlayer: handleCreatePlayer,
     onReducePlayerLife: handleReducePlayerLife,
     onIncreaseCurrentScore: handleIncreaseCurrentScore,

@@ -3,7 +3,7 @@ import { useRef, useContext } from "react";
 import { PlayerContext } from "../store/player-context";
 
 export default function Login({ onChangePage }) {
-  const { onCreatePlayer } = useContext(PlayerContext);
+  const { players, onCreatePlayer } = useContext(PlayerContext);
 
   const playerName = useRef();
 
@@ -31,6 +31,10 @@ export default function Login({ onChangePage }) {
           <button type="submit">save</button>
         </div>
       </form>
+      <h3>Or Select A Player</h3>
+      {players.map(player => (
+        <button key={player.playerName}>{player.playerName}</button>
+      ))}
     </div>
   );
 }
