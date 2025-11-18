@@ -7,7 +7,7 @@ export default function Login({ onChangePage }) {
 
   const playerName = useRef();
 
-  function handleValidatePlayerName(event) {
+  function handleSavePlayer(event) {
     event.preventDefault();
 
     onCreatePlayer(playerName.current.value);
@@ -17,7 +17,7 @@ export default function Login({ onChangePage }) {
   return (
     <div>
       <h1>Welcome to trivia quiz</h1>
-      <form action="" onSubmit={handleValidatePlayerName}>
+      <form action="" onSubmit={handleSavePlayer}>
         <h3>Please enter your player name</h3>
         <div className="input">
           <input
