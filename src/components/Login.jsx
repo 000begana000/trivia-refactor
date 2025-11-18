@@ -5,7 +5,8 @@ import { PlayerContext } from "../store/player-context";
 export default function Login({ onChangePage }) {
   const [invalid, setInvalid] = useState(false);
 
-  const { players, onCreatePlayer } = useContext(PlayerContext);
+  const { player, players, onCreatePlayer, onSelectPlayer } =
+    useContext(PlayerContext);
 
   const playerName = useRef();
 
@@ -39,16 +40,27 @@ export default function Login({ onChangePage }) {
             required
             minLength={5}
             ref={playerName}
+            disabled={player}
           />
-          <button type="submit">save</button>
+          <button type="submit" disabled={player}>
+            save
+          </button>
         </div>
         {invalid && <p>player already exists. please choose another name.</p>}
       </form>
       <h3>Or Select A Player</h3>
       {players.length === 0 && <p>there is no player yet</p>}
       {players.map(player => (
-        <button key={player.playerName}>{player.playerName}</button>
+        <button
+          key={player.playerName}
+          onClick={() => {
+            onSelectPlayer(player.playerName);
+          }}
+        >
+          {player.playerName}
+        </button>
       ))}
+      {player && <p>you've selected "{player.playerName}"</p>}
     </div>
   );
 }

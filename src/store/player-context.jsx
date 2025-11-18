@@ -4,6 +4,7 @@ export const PlayerContext = createContext({
   player: { playerName: "", highScore: 0 },
   players: [],
   onCreatePlayer: () => {},
+  onSelectPlayer: selectedPlayerName => {},
   onReducePlayerLife: () => {},
   onIncreaseCurrentScore: () => {},
   onResetPlayer: () => {},
@@ -28,6 +29,13 @@ export default function PlayerContextProvider({ children }) {
     localStorage.setItem("players", JSON.stringify([newPlayer, ...players]));
   }
 
+  function handleSelectPlayer(selectedPlayerName) {
+    const selectedPlayer = players.find(
+      player => player.playerName === selectedPlayerName
+    );
+    setPlayer(selectedPlayer);
+  }
+
   function handleReducePlayerLife() {
     setPlayer(prevState => ({
       ...prevState,
@@ -50,6 +58,7 @@ export default function PlayerContextProvider({ children }) {
     player,
     players,
     onCreatePlayer: handleCreatePlayer,
+    onSelectPlayer: handleSelectPlayer,
     onReducePlayerLife: handleReducePlayerLife,
     onIncreaseCurrentScore: handleIncreaseCurrentScore,
     onResetPlayer: handleResetPlayer,
