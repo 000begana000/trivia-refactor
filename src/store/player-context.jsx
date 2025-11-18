@@ -22,7 +22,10 @@ export default function PlayerContextProvider({ children }) {
       currentScore: 0,
       highScore: 0,
     };
+
     setPlayer(newPlayer);
+
+    localStorage.setItem("players", JSON.stringify([newPlayer, ...players]));
   }
 
   function handleReducePlayerLife() {

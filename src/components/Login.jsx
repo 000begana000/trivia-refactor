@@ -10,7 +10,18 @@ export default function Login({ onChangePage }) {
   function handleSavePlayer(event) {
     event.preventDefault();
 
-    onCreatePlayer(playerName.current.value);
+    const valid = players.every(
+      player => player.playerName !== playerName.current.value
+    );
+
+    if (valid) {
+      onCreatePlayer(playerName.current.value);
+      console.log("valid");
+    } else {
+      console.log("invalid");
+      return;
+    }
+
     onChangePage("categories");
   }
 
