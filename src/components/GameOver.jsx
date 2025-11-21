@@ -5,17 +5,19 @@ import { PlayerContext } from "../store/player-context";
 
 export default function GameOver({ onChangePage }) {
   const { onResetPlayedCategory } = useContext(QuizContext);
-  const { player, onResetPlayer } = useContext(PlayerContext);
+  const { player, onResetPlayer, onLocalStorageUpdate } =
+    useContext(PlayerContext);
 
   function handleChangePage() {
     onResetPlayer();
-    onResetPlayedCategory();
+    onResetPlayedCategory(); // before reset we need to update LHs
     onChangePage("categories");
   }
 
   let scoreResult;
 
   if (player.currentScore <= player.highScore) {
+    onLocalStorageUpdate(player.highScore);
     scoreResult = (
       <>
         <p>final score: {player.currentScore}</p>
@@ -23,6 +25,7 @@ export default function GameOver({ onChangePage }) {
       </>
     );
   } else {
+    onLocalStorageUpdate(player.currentScore);
     scoreResult = (
       <>
         <h3>You made a new record!</h3>

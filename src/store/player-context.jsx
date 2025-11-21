@@ -7,6 +7,7 @@ export const PlayerContext = createContext({
   onSelectPlayer: selectedPlayerName => {},
   onReducePlayerLife: () => {},
   onIncreaseCurrentScore: () => {},
+  onLocalStorageUpdate: () => {},
   onResetPlayer: () => {},
 });
 
@@ -50,8 +51,33 @@ export default function PlayerContextProvider({ children }) {
     }));
   }
 
+  function handleLocalStorageUpdate(highScore) {
+    const existingPlayerIndex = players.findIndex(
+      existingPlayer => existingPlayer.playerName === player.playerName
+    );
+    const updatedPlayers = [...players];
+    const existingPlayer = players[existingPlayerIndex];
+
+    const updatedPlayer = {
+      ...existingPlayer,
+      highScore,
+      currentScore: 0,
+      playerLife: 5,
+    };
+
+    updatedPlayers[existingPlayerIndex] = updatedPlayer;
+    console.log(updatedPlayers);
+
+    localStorage.setItem("players", JSON.stringify([...updatedPlayers]));
+  }
+
   function handleResetPlayer() {
-    setPlayer(prevState => ({ ...prevState, playerLife: 5, currentScore: 0 }));
+    setPlayer(prevState => ({
+      ...prevState,
+      playerLife: 5,
+      currentScore: 0,
+      highScore: prevState.currentScore,
+    }));
   }
 
   const ctxValue = {
@@ -61,6 +87,7 @@ export default function PlayerContextProvider({ children }) {
     onSelectPlayer: handleSelectPlayer,
     onReducePlayerLife: handleReducePlayerLife,
     onIncreaseCurrentScore: handleIncreaseCurrentScore,
+    onLocalStorageUpdate: handleLocalStorageUpdate,
     onResetPlayer: handleResetPlayer,
   };
 
