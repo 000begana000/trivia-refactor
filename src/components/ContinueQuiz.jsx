@@ -1,14 +1,16 @@
 import { useContext } from "react";
 
 import { QuizContext } from "../store/quiz-context";
+import { PlayerContext } from "../store/player-context";
 
 export default function ContinueQuiz({
   onChangePage,
   selectedAnswers,
   onResetAnswers,
-  onLocalStorageUpdate,
 }) {
   const { quizItems } = useContext(QuizContext);
+  const { player, onLocalStorageUpdate, onContinuePlayer } =
+    useContext(PlayerContext);
 
   let scoreResult;
 
@@ -35,6 +37,11 @@ export default function ContinueQuiz({
   function handleChangePage() {
     onChangePage("categories");
     onResetAnswers();
+    if (player.currentScore <= player.highScore) {
+      onContinuePlayer(player.highScore);
+    } else {
+      onContinuePlayer(player.currentScore);
+    }
   }
 
   return (
