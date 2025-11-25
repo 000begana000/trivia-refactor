@@ -29,6 +29,7 @@ export default function Categories({ onChangePage }) {
     async function fetchQuiz() {
       if (!categoryId) return;
       setLoading(true);
+      setError("");
 
       try {
         const response = await fetch(
@@ -82,9 +83,12 @@ export default function Categories({ onChangePage }) {
         ))}
       </ul>
       {categoryName && <p>You've selected "{categoryName}" category</p>}
-      <button disabled={loading} onClick={handleStartGame}>
-        {loading ? "Select A Category" : "Start new game"}
-      </button>
+      {error && <p>Something went wrong. please choose another category.</p>}
+      {!error && (
+        <button disabled={loading} onClick={handleStartGame}>
+          {loading ? "Select A Category" : "Start new game"}
+        </button>
+      )}
     </div>
   );
 }
