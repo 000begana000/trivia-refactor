@@ -3,6 +3,8 @@ import { useContext, useState, useCallback } from "react";
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
+import { decodeHTML } from "../store/htmlDecoder";
+
 import QuestionTimer from "./QuestionTimer";
 import ContinueQuiz from "./ContinueQuiz";
 import GameOver from "./GameOver";
@@ -96,7 +98,9 @@ export default function Quiz({ onChangePage }) {
         <p>highs score: {player.highScore}</p>
       </div>
       <div>
-        {quizItems && <p>{quizItems[activeQuestionIndex].question}</p>}
+        {quizItems && (
+          <p>{decodeHTML(quizItems[activeQuestionIndex].question)}</p>
+        )}
         <QuestionTimer
           key={timer}
           timeout={timer}
