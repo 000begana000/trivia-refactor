@@ -1,8 +1,11 @@
+// hooks
 import { useState, useEffect, useContext } from "react";
 
+// import contexts
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
+// default categories
 const CATEGORIES = [
   { id: 9, name: "General Knowledge" },
   { id: 11, name: "Film" },
@@ -25,11 +28,13 @@ export default function Categories({ onChangePage }) {
     useContext(QuizContext);
   const { player } = useContext(PlayerContext);
 
+  // Fetching quiz items
   useEffect(() => {
     async function fetchQuiz() {
-      if (!categoryId) return;
-      setLoading(true);
-      setError("");
+      if (!categoryId) return; // guard clause (too many request)
+
+      setLoading(true); // reset loading state
+      setError(""); // reset error state
 
       try {
         const response = await fetch(
@@ -45,7 +50,7 @@ export default function Categories({ onChangePage }) {
         onSaveQuizItems(resData.results);
         setLoading(false);
 
-        console.log(resData.results);
+        console.log(resData.results); // for testing
       } catch (error) {
         setError({ message: error.message || "Could not fetch quiz items." });
       }
@@ -55,15 +60,15 @@ export default function Categories({ onChangePage }) {
   }, [categoryId]);
 
   function handleSelectCategoryName(category) {
-    setCategoryName(category.name);
-    setCategoryId(category.id);
+    setCategoryName(category.name); // prompt category name
+    setCategoryId(category.id); // fetch quiz data
   }
 
   function handleStartGame() {
     if (!playedCategories.includes(categoryId)) {
-      onSavePlayedCategory(categoryId);
+      onSavePlayedCategory(categoryId); // save played category name
     }
-    onChangePage("quiz");
+    onChangePage("quiz"); // change the page to Quiz
   }
 
   return (
