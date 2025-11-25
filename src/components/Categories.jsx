@@ -18,7 +18,7 @@ const CATEGORIES = [
 export default function Categories({ onChangePage }) {
   const [categoryId, setCategoryId] = useState("");
   const [categoryName, setCategoryName] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const { onSaveQuizItems, playedCategories, onSavePlayedCategory } =
@@ -28,6 +28,7 @@ export default function Categories({ onChangePage }) {
   useEffect(() => {
     async function fetchQuiz() {
       if (!categoryId) return;
+      setLoading(true);
 
       try {
         const response = await fetch(
@@ -41,6 +42,8 @@ export default function Categories({ onChangePage }) {
         }
 
         onSaveQuizItems(resData.results);
+        setLoading(false);
+
         console.log(resData.results);
       } catch (error) {
         setError({ message: error.message || "Could not fetch quiz items." });
@@ -79,8 +82,8 @@ export default function Categories({ onChangePage }) {
         ))}
       </ul>
       {categoryName && <p>You've selected "{categoryName}" category</p>}
-      <button disabled={!categoryId} onClick={handleStartGame}>
-        Start new game
+      <button disabled={loading} onClick={handleStartGame}>
+        {loading ? "Select A Category" : "Start new game"}
       </button>
     </div>
   );
