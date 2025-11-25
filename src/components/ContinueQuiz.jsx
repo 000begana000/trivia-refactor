@@ -1,5 +1,7 @@
+// hooks
 import { useContext } from "react";
 
+// import context
 import { QuizContext } from "../store/quiz-context";
 import { PlayerContext } from "../store/player-context";
 
@@ -8,14 +10,16 @@ export default function ContinueQuiz({
   selectedAnswers,
   onResetAnswers,
 }) {
+  // imported states & functions from contexts
   const { quizItems } = useContext(QuizContext);
   const { player, onLocalStorageUpdate, onContinuePlay } =
     useContext(PlayerContext);
 
   let scoreResult;
 
+  // print different content depends on highscore
   if (player.currentScore <= player.highScore) {
-    onLocalStorageUpdate(player.highScore);
+    onLocalStorageUpdate(player.highScore); // save new record to local storage
     scoreResult = (
       <>
         <p>final score: {player.currentScore}</p>
@@ -23,7 +27,7 @@ export default function ContinueQuiz({
       </>
     );
   } else {
-    onLocalStorageUpdate(player.currentScore);
+    onLocalStorageUpdate(player.currentScore); // save new record to local storage
     scoreResult = (
       <>
         <h3>You made a new record!</h3>
@@ -36,7 +40,8 @@ export default function ContinueQuiz({
   // Change page to categories
   function handleChangePage() {
     onChangePage("categories");
-    onResetAnswers();
+    onResetAnswers(); // reset answers to empty array
+    // save scores to continue play
     if (player.currentScore <= player.highScore) {
       onContinuePlay(player.highScore, player.currentScore);
     } else {

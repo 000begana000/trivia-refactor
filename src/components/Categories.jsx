@@ -24,6 +24,7 @@ export default function Categories({ onChangePage }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  // imported states & functions from contexts
   const { onSaveQuizItems, playedCategories, onSavePlayedCategory } =
     useContext(QuizContext);
   const { player } = useContext(PlayerContext);
