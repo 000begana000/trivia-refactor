@@ -9,7 +9,7 @@ export default function ContinueQuiz({
   onResetAnswers,
 }) {
   const { quizItems } = useContext(QuizContext);
-  const { player, onLocalStorageUpdate, onContinuePlayer } =
+  const { player, onLocalStorageUpdate, onContinuePlay } =
     useContext(PlayerContext);
 
   let scoreResult;
@@ -38,9 +38,9 @@ export default function ContinueQuiz({
     onChangePage("categories");
     onResetAnswers();
     if (player.currentScore <= player.highScore) {
-      onContinuePlayer(player.highScore);
+      onContinuePlay(player.highScore, player.currentScore);
     } else {
-      onContinuePlayer(player.currentScore);
+      onContinuePlay(player.currentScore, player.currentScore);
     }
   }
 

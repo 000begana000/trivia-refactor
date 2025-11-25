@@ -8,7 +8,7 @@ export const PlayerContext = createContext({
   onReducePlayerLife: () => {},
   onIncreaseCurrentScore: () => {},
   onLocalStorageUpdate: () => {},
-  onContinuePlayer: highScore => {},
+  onContinuePlay: (highScore, currentScore) => {},
   onResetPlayer: () => {},
 });
 
@@ -72,10 +72,10 @@ export default function PlayerContextProvider({ children }) {
     localStorage.setItem("players", JSON.stringify([...updatedPlayers]));
   }
 
-  function handleContinuePlayer(highScore) {
+  function handleContinuePlay(highScore, currentScore) {
     setPlayer(prevState => ({
       ...prevState,
-      currentScore: 0,
+      currentScore,
       highScore,
     }));
   }
@@ -97,7 +97,7 @@ export default function PlayerContextProvider({ children }) {
     onReducePlayerLife: handleReducePlayerLife,
     onIncreaseCurrentScore: handleIncreaseCurrentScore,
     onLocalStorageUpdate: handleLocalStorageUpdate,
-    onContinuePlayer: handleContinuePlayer,
+    onContinuePlay: handleContinuePlay,
     onResetPlayer: handleResetPlayer,
   };
 
