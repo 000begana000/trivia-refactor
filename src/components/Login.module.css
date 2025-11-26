@@ -1,0 +1,17 @@
+.formInput {
+  height: 40px;
+  width: 304px;
+  padding: 0;
+  margin-right: 17px;
+  border: 0;
+}
+
+.buttonLoginSave {
+  background-color: var(--primary-blue);
+  text-transform: uppercase;
+  height: 40px;
+  width: 89px;
+  padding: 0;
+  margin-top: 22px;
+  border: 0;
+}

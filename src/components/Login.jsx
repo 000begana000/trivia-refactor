@@ -2,6 +2,8 @@ import { useRef, useContext, useState } from "react";
 
 import { PlayerContext } from "../store/player-context";
 
+import styles from "./Login.module.css";
+
 export default function Login({ onChangePage }) {
   const [invalid, setInvalid] = useState(false);
 
@@ -33,23 +35,27 @@ export default function Login({ onChangePage }) {
 
   return (
     <div>
-      <h1>Welcome to trivia quiz</h1>
       <form action="" onSubmit={handleSavePlayer}>
-        <h3>Please enter your player name</h3>
-        <div className="input">
+        <h3 className="mainPrompt">Please enter your player name</h3>
+        <div>
           <input
+            className={styles.formInput}
+            name="playerName"
             type="text"
-            name=""
-            id=""
             required
             minLength={5}
             ref={playerName}
             disabled={player}
           />
-          <button type="submit" disabled={player}>
+          <button
+            type="submit"
+            className={styles.buttonLoginSave}
+            disabled={player}
+          >
             save
           </button>
         </div>
+
         {invalid && <p>player already exists. please choose another name.</p>}
       </form>
       <h3>Or Select A Player</h3>
