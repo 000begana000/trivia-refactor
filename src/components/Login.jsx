@@ -84,7 +84,7 @@ export default function Login({ onChangePage }) {
       </div>
       <div>
         {player && (
-          <button onClick={handleStartNewGame}>
+          <button className="buttonStartNewGame" onClick={handleStartNewGame}>
             Start new game as "{player.playerName}"
           </button>
         )}
