@@ -6,6 +6,7 @@ import styles from "./Login.module.css";
 
 export default function Login({ onChangePage }) {
   const [invalid, setInvalid] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
 
   const { player, players, onCreatePlayer, onSelectPlayer } =
     useContext(PlayerContext);
@@ -27,6 +28,11 @@ export default function Login({ onChangePage }) {
     }
 
     onChangePage("categories");
+  }
+
+  function handleSelectPlayer(playerName) {
+    setSelectedPlayer(playerName);
+    onSelectPlayer(playerName);
   }
 
   function handleStartNewGame() {
@@ -58,18 +64,24 @@ export default function Login({ onChangePage }) {
 
         {invalid && <p>player already exists. please choose another name.</p>}
       </form>
-      <h3>Or Select A Player</h3>
-      {players.length === 0 && <p>there is no player yet</p>}
-      {players.map(player => (
-        <button
-          key={player.playerName}
-          onClick={() => {
-            onSelectPlayer(player.playerName);
-          }}
-        >
-          {player.playerName}
-        </button>
-      ))}
+      <p className={styles.paragraphLogin}>OR</p>
+      <h3 className="mainPrompt">Select A Player</h3>
+      <div className={styles.players}>
+        {players.length === 0 && <p>there is no player yet</p>}
+        {players.map(player => (
+          <button
+            key={player.playerName}
+            className={`${styles.buttonPlayerName} ${
+              selectedPlayer === player.playerName ? styles.selected : ""
+            }`}
+            onClick={() => {
+              handleSelectPlayer(player.playerName);
+            }}
+          >
+            {player.playerName}
+          </button>
+        ))}
+      </div>
       <div>
         {player && (
           <button onClick={handleStartNewGame}>

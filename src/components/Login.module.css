@@ -1,17 +1,50 @@
 .formInput {
-  height: 40px;
-  width: 304px;
+  height: 35px;
+  width: 260px;
   padding: 0;
-  margin-right: 17px;
+  margin-right: 13px;
   border: 0;
 }
 
 .buttonLoginSave {
   background-color: var(--primary-blue);
   text-transform: uppercase;
-  height: 40px;
-  width: 89px;
+  height: 35px;
+  width: 80px;
   padding: 0;
   margin-top: 22px;
   border: 0;
+}
+
+.paragraphLogin {
+  margin-top: 35px;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.players {
+  height: 214px;
+  width: 350px;
+  border: 4px solid var(--primary-blue);
+  margin: 22px auto;
+}
+
+.buttonPlayerName {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 300;
+  padding: 7px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buttonPlayerName:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.selected {
+  background-color: rgba(255, 255, 255, 0.2);
 }
