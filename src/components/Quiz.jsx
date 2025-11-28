@@ -1,74 +1,84 @@
+// hooks
 import { useContext, useState, useCallback } from "react";
 
+// imported contexts
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
+// imported function
 import { decodeHTML } from "../store/htmlDecoder";
 
+// imported components
 import QuestionTimer from "./QuestionTimer";
 import ContinueQuiz from "./ContinueQuiz";
 import GameOver from "./GameOver";
 
 export default function Quiz({ onChangePage }) {
+  // states
   const [currentScore, setCurrentScore] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [answerState, setAnswerState] = useState("unanswered");
 
-  // Import states & functions from contexts
+  // import states & functions from contexts
   const { quizItems } = useContext(QuizContext);
   const { player, onReducePlayerLife, onIncreaseCurrentScore } =
     useContext(PlayerContext);
 
-  // Current Question Index
+  // current question index
   let activeQuestionIndex =
     answerState === "unanswered"
       ? selectedAnswers.length
       : selectedAnswers.length - 1;
 
-  // Initial timer
+  // initial timer value
   let timer = 10000;
 
-  // Timer after user
+  // if player choose an answer, timer value = 1sec
   if (answerState === "answered") {
     timer = 1000;
   }
 
+  // show player answer result for 2sec (timer value = 2sec)
   if (answerState === "correct" || answerState === "wrong") {
     timer = 2000;
   }
 
+  // select an answer
   const handleSelectAnswer = useCallback(
     function handleSelectAnswer(newAnswer) {
-      setAnswerState("answered");
+      setAnswerState("answered"); // change timer value
 
-      setSelectedAnswers(prevAnswers => [...prevAnswers, newAnswer]);
+      setSelectedAnswers(prevAnswers => [...prevAnswers, newAnswer]); // save answer
 
       const correctedAnswerLowcase =
-        quizItems[activeQuestionIndex].correct_answer.toLowerCase();
+        quizItems[activeQuestionIndex].correct_answer.toLowerCase(); // correct answer to lower case
 
       setTimeout(() => {
+        // if the answer is correct
         if (newAnswer === correctedAnswerLowcase) {
-          setAnswerState("correct");
-          onIncreaseCurrentScore();
+          setAnswerState("correct"); // to highlight buttons to green & change timer value
+          onIncreaseCurrentScore(); // increase current score
         } else {
-          setAnswerState("wrong");
-          onReducePlayerLife();
+          setAnswerState("wrong"); // to highlight buttons to red & change timer value
+          onReducePlayerLife(); // reduce life -1
         }
         setTimeout(() => {
-          setAnswerState("unanswered");
+          setAnswerState("unanswered"); // reset answer state to "unanswered"
         }, 2000);
       }, 1000);
     },
     [quizItems, activeQuestionIndex]
   );
 
+  // skip answer
   const handleSkipAnswer = useCallback(
     function handleSkipAnswer() {
-      handleSelectAnswer("skipped");
+      handleSelectAnswer("skipped"); // save answer as "skipped"
     },
     [handleSelectAnswer]
   );
 
+  // reset answers array to []
   function handleResetAnswers() {
     setSelectedAnswers([]);
   }
