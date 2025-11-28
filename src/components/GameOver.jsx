@@ -1,21 +1,26 @@
+// hooks
 import { useContext } from "react";
 
+// imported context
 import { QuizContext } from "../store/quiz-context";
 import { PlayerContext } from "../store/player-context";
 
 export default function GameOver({ onChangePage }) {
+  // imported states & functions from contexts
   const { onResetPlayedCategory } = useContext(QuizContext);
   const { player, onResetPlayer, onLocalStorageUpdate } =
     useContext(PlayerContext);
 
+  // change page to categories
   function handleChangePage() {
-    onResetPlayer();
-    onResetPlayedCategory(); // before reset we need to update LHs
+    onResetPlayer(); // reset player's state
+    onResetPlayedCategory(); // reset played categories array to []
     onChangePage("categories");
   }
 
-  let scoreResult;
+  let scoreResult; // empty array to display result of score
 
+  // if player didn't make new record
   if (player.currentScore <= player.highScore) {
     onLocalStorageUpdate(player.highScore);
     scoreResult = (
@@ -24,6 +29,7 @@ export default function GameOver({ onChangePage }) {
         <p>high score: {player.highScore}</p>
       </>
     );
+    // else player made new record
   } else {
     onLocalStorageUpdate(player.currentScore);
     scoreResult = (
