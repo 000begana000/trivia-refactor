@@ -24,6 +24,7 @@ const CATEGORIES = [
 export default function Categories({ onChangePage }) {
   const [categoryId, setCategoryId] = useState("");
   const [categoryName, setCategoryName] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -65,6 +66,7 @@ export default function Categories({ onChangePage }) {
 
   function handleSelectCategoryName(category) {
     setCategoryName(category.name); // prompt category name
+    setSelectedCategory(category.name);
     setCategoryId(category.id); // fetch quiz data
   }
 
@@ -85,7 +87,9 @@ export default function Categories({ onChangePage }) {
           {CATEGORIES.map(category => (
             <li key={category.id} className={styles.listStyleNone}>
               <button
-                className={styles.buttonCategory}
+                className={`${styles.buttonCategory} ${
+                  selectedCategory === category.name ? styles.selected : ""
+                }`}
                 disabled={playedCategories.includes(category.id)}
                 onClick={() => handleSelectCategoryName(category)}
               >

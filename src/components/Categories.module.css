@@ -22,3 +22,7 @@
 .buttonCategory:hover {
   background-color: rgba(188, 237, 246, 0.8);
 }
+
+.selected {
+  background-color: rgba(188, 237, 246, 0.6);
+}
