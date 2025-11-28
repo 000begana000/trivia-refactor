@@ -1,40 +1,50 @@
+// hooks
 import { useRef, useContext, useState } from "react";
 
+// imported context
 import { PlayerContext } from "../store/player-context";
 
 import styles from "./Login.module.css";
 
 export default function Login({ onChangePage }) {
+  // states
   const [invalid, setInvalid] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
 
+  // imported states & functions from contexts
   const { player, players, onCreatePlayer, onSelectPlayer } =
     useContext(PlayerContext);
 
-  const playerName = useRef();
+  const playerName = useRef(); // player name ref
 
+  // save new player to local storage and change page to categories
   function handleSavePlayer(event) {
     event.preventDefault();
 
+    // player name validation
     const valid = players.every(
       player => player.playerName !== playerName.current.value
     );
 
+    // if player name is valid, create new player & save
     if (valid) {
       onCreatePlayer(playerName.current.value);
+      // else set invalid state to true & print warning message
     } else {
       setInvalid(true);
       return;
     }
 
-    onChangePage("categories");
+    onChangePage("categories"); // change page
   }
 
+  // select a player
   function handleSelectPlayer(playerName) {
-    setSelectedPlayer(playerName);
-    onSelectPlayer(playerName);
+    setSelectedPlayer(playerName); // highlight selected player
+    onSelectPlayer(playerName); // set selected player as current player
   }
 
+  // change page to category
   function handleStartNewGame() {
     onChangePage("categories");
   }
