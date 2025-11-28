@@ -1,3 +1,4 @@
+// hooks
 import { useState, useEffect } from "react";
 
 export default function QuestionTimer({ onTimeout, timeout }) {
@@ -14,7 +15,7 @@ export default function QuestionTimer({ onTimeout, timeout }) {
     };
   }, [onTimeout, timeout]);
 
-  // Reduce remaining time
+  // Reduce remaining time from progress bar
   useEffect(() => {
     const interval = setInterval(() => {
       setRemainingTime(prevTime => prevTime - 100);
