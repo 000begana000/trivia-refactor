@@ -42,6 +42,11 @@ button {
   font-size: 17px;
   border: none;
   background-color: var(--primary-blue);
+  cursor: pointer;
+}
+
+.buttonStartNewGame:hover {
+  background-color: rgba(188, 237, 246, 0.8);
 }
 
 .correct {

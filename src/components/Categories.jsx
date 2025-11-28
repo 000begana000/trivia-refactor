@@ -99,10 +99,16 @@ export default function Categories({ onChangePage }) {
           ))}
         </div>
       </ul>
-      {categoryName && <p>You've selected "{categoryName}" category</p>}
+      {categoryName && (
+        <p className="paragraph">You've selected "{categoryName}" category</p>
+      )}
       {error && <p>Something went wrong. please choose another category.</p>}
       {!error && (
-        <button disabled={loading} onClick={handleStartGame}>
+        <button
+          className="buttonStartNewGame"
+          disabled={loading}
+          onClick={handleStartGame}
+        >
           {loading ? "Select A Category" : "Start new game"}
         </button>
       )}

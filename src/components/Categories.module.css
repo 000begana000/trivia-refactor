@@ -3,7 +3,7 @@
 }
 
 .grid {
-  margin: 0 auto;
+  margin: 0 auto 52px auto;
   width: 622px;
   display: grid;
   gap: 10px;
@@ -17,6 +17,7 @@
   border: none;
   font-size: 14px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .buttonCategory:hover {
