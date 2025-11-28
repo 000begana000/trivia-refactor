@@ -5,6 +5,9 @@ import { useState, useEffect, useContext } from "react";
 import { PlayerContext } from "../store/player-context";
 import { QuizContext } from "../store/quiz-context";
 
+// css module
+import styles from "./Categories.module.css";
+
 // default categories
 const CATEGORIES = [
   { id: 9, name: "General Knowledge" },
@@ -74,19 +77,23 @@ export default function Categories({ onChangePage }) {
 
   return (
     <div>
-      <p>Welcome, {player.playerName}!</p>
-      <p>Please select a category.</p>
+      <p className="mainPrompt">Welcome, {player.playerName}!</p>
+      <p className="paragraph">PLEASE SELECT A CAGEGORY.</p>
+
       <ul>
-        {CATEGORIES.map(category => (
-          <li key={category.id}>
-            <button
-              disabled={playedCategories.includes(category.id)}
-              onClick={() => handleSelectCategoryName(category)}
-            >
-              {category.name}
-            </button>
-          </li>
-        ))}
+        <div className={styles.grid}>
+          {CATEGORIES.map(category => (
+            <li key={category.id} className={styles.listStyleNone}>
+              <button
+                className={styles.buttonCategory}
+                disabled={playedCategories.includes(category.id)}
+                onClick={() => handleSelectCategoryName(category)}
+              >
+                {category.name}
+              </button>
+            </li>
+          ))}
+        </div>
       </ul>
       {categoryName && <p>You've selected "{categoryName}" category</p>}
       {error && <p>Something went wrong. please choose another category.</p>}

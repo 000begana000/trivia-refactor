@@ -1,0 +1,24 @@
+.listStyleNone {
+  list-style: none;
+}
+
+.grid {
+  margin: 0 auto;
+  width: 622px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.buttonCategory {
+  background-color: var(--primary-blue);
+  width: 100%;
+  height: 40px;
+  border: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.buttonCategory:hover {
+  background-color: rgba(188, 237, 246, 0.8);
+}

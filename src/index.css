@@ -31,6 +31,11 @@ button {
   margin: 0;
 }
 
+.paragraph {
+  font-size: 20px;
+  font-weight: 300;
+}
+
 .buttonStartNewGame {
   width: 350px;
   height: 40px;
