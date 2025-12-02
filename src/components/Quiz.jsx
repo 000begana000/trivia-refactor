@@ -13,6 +13,9 @@ import QuestionTimer from "./QuestionTimer";
 import ContinueQuiz from "./ContinueQuiz";
 import GameOver from "./GameOver";
 
+// css module
+import styles from "./Quiz.module.css";
+
 export default function Quiz({ onChangePage }) {
   // states
   const [currentScore, setCurrentScore] = useState(0);
@@ -101,11 +104,27 @@ export default function Quiz({ onChangePage }) {
 
   return (
     <>
-      <div>
-        <p>player name:{player.playerName}</p>
-        <p>player life: {player.playerLife}</p>
-        <p>current score: {player.currentScore}</p>
-        <p>highs score: {player.highScore}</p>
+      <div className={styles.cardsPlayerState}>
+        <div className="flex">
+          <span className={`${styles.cardPlayerState} ${styles.gap}`}>
+            <p className={styles.cardPlayerTitle}>player name</p>
+            <p className={styles.cardPlayerContext}>{player.playerName}</p>
+          </span>
+          <span className={styles.cardPlayerState}>
+            <p className={styles.cardPlayerTitle}>player life</p>
+            <p className={styles.cardPlayerContext}>{player.playerLife}</p>
+          </span>
+        </div>
+        <div className="flex">
+          <span className={`${styles.cardPlayerState} ${styles.gap}`}>
+            <p className={styles.cardPlayerTitle}>current score</p>
+            <p className={styles.cardPlayerContext}>{player.currentScore}</p>
+          </span>
+          <span className={styles.cardPlayerState}>
+            <p className={styles.cardPlayerTitle}>high score</p>
+            <p className={styles.cardPlayerContext}>{player.highScore}</p>
+          </span>
+        </div>
       </div>
       <div>
         {quizItems && (
