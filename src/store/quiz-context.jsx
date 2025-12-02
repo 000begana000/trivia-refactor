@@ -17,7 +17,7 @@ export default function QuizContextProvider({ children }) {
   }
 
   function handleSavePlayedCategory(newCategory) {
-    setPlayedCategories(prevCategories => [...prevCategories, newCategory]);
+    setPlayedCategories(prevCategories => [newCategory, ...prevCategories]);
   }
 
   function handleResetPlayedCategories() {

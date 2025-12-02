@@ -16,6 +16,9 @@ import GameOver from "./GameOver";
 // css module
 import styles from "./Quiz.module.css";
 
+// categories
+import { CATEGORIES } from "../store/categories";
+
 export default function Quiz({ onChangePage }) {
   // states
   const [currentScore, setCurrentScore] = useState(0);
@@ -23,7 +26,7 @@ export default function Quiz({ onChangePage }) {
   const [answerState, setAnswerState] = useState("unanswered");
 
   // import states & functions from contexts
-  const { quizItems } = useContext(QuizContext);
+  const { quizItems, playedCategories } = useContext(QuizContext);
   const { player, onReducePlayerLife, onIncreaseCurrentScore } =
     useContext(PlayerContext);
 
@@ -35,6 +38,11 @@ export default function Quiz({ onChangePage }) {
 
   // initial timer value
   let timer = 10000;
+
+  // current category name
+  const currentCategory = CATEGORIES.find(
+    category => category.id === playedCategories[0]
+  );
 
   // if player choose an answer, timer value = 1sec
   if (answerState === "answered") {
@@ -111,8 +119,8 @@ export default function Quiz({ onChangePage }) {
             <p className={styles.cardPlayerContext}>{player.playerName}</p>
           </span>
           <span className={styles.cardPlayerState}>
-            <p className={styles.cardPlayerTitle}>player life</p>
-            <p className={styles.cardPlayerContext}>{player.playerLife}</p>
+            <p className={styles.cardPlayerTitle}>cateogry</p>
+            <p className={styles.cardPlayerContext}>{currentCategory.name}</p>
           </span>
         </div>
         <div className="flex">
