@@ -1,8 +1,12 @@
+.container {
+  width: 1047px;
+  margin: 0 auto;
+}
+
 .cardsPlayerState {
   display: flex;
   justify-content: space-between;
-  width: 1047px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .cardPlayerState {
@@ -25,4 +29,15 @@
 
 .gap {
   margin-right: 15px;
+}
+
+.lives {
+  display: flex;
+  justify-content: flex-end;
+  margin: 75px 15px 10px 0px;
+}
+
+.life {
+  width: 30px;
+  height: 30px;
 }

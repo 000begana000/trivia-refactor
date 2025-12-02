@@ -8,6 +8,9 @@ import { QuizContext } from "../store/quiz-context";
 // imported function
 import { decodeHTML } from "../store/htmlDecoder";
 
+// categories
+import { CATEGORIES } from "../store/categories";
+
 // imported components
 import QuestionTimer from "./QuestionTimer";
 import ContinueQuiz from "./ContinueQuiz";
@@ -16,8 +19,8 @@ import GameOver from "./GameOver";
 // css module
 import styles from "./Quiz.module.css";
 
-// categories
-import { CATEGORIES } from "../store/categories";
+// images
+import heart from "../assets/Heart.svg";
 
 export default function Quiz({ onChangePage }) {
   // states
@@ -111,7 +114,7 @@ export default function Quiz({ onChangePage }) {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.cardsPlayerState}>
         <div className="flex">
           <span className={`${styles.cardPlayerState} ${styles.gap}`}>
@@ -134,6 +137,12 @@ export default function Quiz({ onChangePage }) {
           </span>
         </div>
       </div>
+      <div className={styles.lives}>
+        {[...Array(player.playerLife)].map((_, i) => (
+          <img key={i} src={heart} alt="life" className={styles.life} />
+        ))}
+      </div>
+
       <div>
         {quizItems && (
           <p>{decodeHTML(quizItems[activeQuestionIndex].question)}</p>
@@ -172,6 +181,6 @@ export default function Quiz({ onChangePage }) {
           </button>
         </p>
       </div>
-    </>
+    </div>
   );
 }
