@@ -143,44 +143,40 @@ export default function Quiz({ onChangePage }) {
         ))}
       </div>
 
-      <div>
+      <div className={styles.question}>
         {quizItems && (
           <p>{decodeHTML(quizItems[activeQuestionIndex].question)}</p>
         )}
-        <QuestionTimer
-          key={timer}
-          timeout={timer}
-          onTimeout={handleSkipAnswer}
-        />
-        <p>
-          <button
-            className={
-              answerState === "correct" ||
-              answerState === "wrong" ||
-              answerState === "answered"
-                ? answerState
-                : undefined
-            }
-            disabled={answerState !== "unanswered"}
-            onClick={() => handleSelectAnswer("true")}
-          >
-            True
-          </button>
-          <button
-            className={
-              answerState === "correct" ||
-              answerState === "wrong" ||
-              answerState === "answered"
-                ? answerState
-                : undefined
-            }
-            disabled={answerState !== "unanswered"}
-            onClick={() => handleSelectAnswer("false")}
-          >
-            False
-          </button>
-        </p>
       </div>
+      <QuestionTimer key={timer} timeout={timer} onTimeout={handleSkipAnswer} />
+      <p>
+        <button
+          className={
+            answerState === "correct" ||
+            answerState === "wrong" ||
+            answerState === "answered"
+              ? answerState
+              : undefined
+          }
+          disabled={answerState !== "unanswered"}
+          onClick={() => handleSelectAnswer("true")}
+        >
+          True
+        </button>
+        <button
+          className={
+            answerState === "correct" ||
+            answerState === "wrong" ||
+            answerState === "answered"
+              ? answerState
+              : undefined
+          }
+          disabled={answerState !== "unanswered"}
+          onClick={() => handleSelectAnswer("false")}
+        >
+          False
+        </button>
+      </p>
     </div>
   );
 }
