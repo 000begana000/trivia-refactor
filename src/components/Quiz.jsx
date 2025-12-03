@@ -63,7 +63,7 @@ export default function Quiz({ onChangePage }) {
     function handleSelectAnswer(newAnswer) {
       setAnswerState("answered"); // change timer value
       setSelectedAnswers(prevAnswers => [...prevAnswers, newAnswer]); // save answer
-      setSelectedAnswerButton(newAnswer);
+      setSelectedAnswerButton(newAnswer); // add border to selected button
 
       const correctedAnswerLowcase =
         quizItems[activeQuestionIndex].correct_answer.toLowerCase(); // correct answer to lower case
