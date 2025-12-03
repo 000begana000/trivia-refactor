@@ -26,6 +26,7 @@ export default function Quiz({ onChangePage }) {
   // states
   const [currentScore, setCurrentScore] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [selectedAnswerButton, setSelectedAnswerButton] = useState(null);
   const [answerState, setAnswerState] = useState("unanswered");
 
   // import states & functions from contexts
@@ -61,8 +62,8 @@ export default function Quiz({ onChangePage }) {
   const handleSelectAnswer = useCallback(
     function handleSelectAnswer(newAnswer) {
       setAnswerState("answered"); // change timer value
-
       setSelectedAnswers(prevAnswers => [...prevAnswers, newAnswer]); // save answer
+      setSelectedAnswerButton(newAnswer);
 
       const correctedAnswerLowcase =
         quizItems[activeQuestionIndex].correct_answer.toLowerCase(); // correct answer to lower case
@@ -78,6 +79,7 @@ export default function Quiz({ onChangePage }) {
         }
         setTimeout(() => {
           setAnswerState("unanswered"); // reset answer state to "unanswered"
+          setSelectedAnswerButton(null);
         }, 2000);
       }, 1000);
     },
@@ -149,28 +151,35 @@ export default function Quiz({ onChangePage }) {
         )}
       </div>
       <QuestionTimer key={timer} timeout={timer} onTimeout={handleSkipAnswer} />
-      <p>
+      <p className={styles.answerButtons}>
         <button
-          className={
+          className={`${
+            selectedAnswerButton === "true" ? styles.selectedAnswerButton : ""
+          } buttonPrimary ${
             answerState === "correct" ||
             answerState === "wrong" ||
             answerState === "answered"
               ? answerState
-              : undefined
+              : ""
           }
+              `}
           disabled={answerState !== "unanswered"}
           onClick={() => handleSelectAnswer("true")}
         >
           True
         </button>
         <button
-          className={
-            answerState === "correct" ||
-            answerState === "wrong" ||
-            answerState === "answered"
-              ? answerState
-              : undefined
-          }
+          className={`${
+            selectedAnswerButton === "false" ? styles.selectedAnswerButton : ""
+          } buttonPrimary
+            ${
+              answerState === "correct" ||
+              answerState === "wrong" ||
+              answerState === "answered"
+                ? answerState
+                : ""
+            }
+              `}
           disabled={answerState !== "unanswered"}
           onClick={() => handleSelectAnswer("false")}
         >

@@ -36,13 +36,34 @@ button {
   font-weight: 300;
 }
 
+button {
+  cursor: pointer;
+}
+
+.buttonPrimary {
+  width: 197px;
+  height: 50px;
+  background-color: var(--primary-blue);
+  border: none;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.buttonPrimary:hover:enabled {
+  background-color: rgba(188, 237, 246, 0.8);
+}
+
+.buttonPrimary:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
 .buttonStartNewGame {
   width: 350px;
   height: 40px;
   font-size: 17px;
   border: none;
   background-color: var(--primary-blue);
-  cursor: pointer;
 }
 
 .buttonStartNewGame:hover {
@@ -50,18 +71,14 @@ button {
 }
 
 .correct {
-  background-color: green;
+  background-color: rgba(52, 199, 89, 06);
 }
 
 .wrong {
-  background-color: red;
+  background-color: rgba(240, 166, 166, 06);
 }
 
 .skipped {
-  background-color: yellow;
-}
-
-.answered {
   background-color: yellow;
 }
 
