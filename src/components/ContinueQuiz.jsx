@@ -30,7 +30,7 @@ export default function ContinueQuiz({
     onLocalStorageUpdate(player.currentScore); // save new record to local storage
     scoreResult = (
       <>
-        <h3>You made a new record!</h3>
+        <h3 className="fontBig">You made a new record!</h3>
         <h4>new high score : {player.currentScore}</h4>
         <p>previous high score: {player.highScore}</p>
       </>
@@ -51,7 +51,7 @@ export default function ContinueQuiz({
 
   return (
     <>
-      <h1>Quiz Complete</h1>
+      <h1 className="mainPrompt">Quiz Complete</h1>
       <div>{scoreResult}</div>
       <div>
         {quizItems.map((item, index) => {
