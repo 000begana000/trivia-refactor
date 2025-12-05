@@ -5,15 +5,23 @@ import { useContext } from "react";
 import { QuizContext } from "../store/quiz-context";
 import { PlayerContext } from "../store/player-context";
 
+// categories
+import { CATEGORIES } from "../store/categories";
+
 export default function ContinueQuiz({
   onChangePage,
   selectedAnswers,
   onResetAnswers,
 }) {
   // imported states & functions from contexts
-  const { quizItems } = useContext(QuizContext);
+  const { quizItems, playedCategories } = useContext(QuizContext);
   const { player, onLocalStorageUpdate, onContinuePlay } =
     useContext(PlayerContext);
+
+  // current category name
+  const currentCategory = CATEGORIES.find(
+    category => category.id === playedCategories[0]
+  );
 
   let scoreResult;
 
@@ -22,8 +30,11 @@ export default function ContinueQuiz({
     onLocalStorageUpdate(player.highScore); // save new record to local storage
     scoreResult = (
       <>
-        <p>final score: {player.currentScore}</p>
-        <p>high score: {player.highScore}</p>
+        <span>
+          <p>current score</p> <p>{player.currentScore}</p>
+        </span>
+        <p>HIGH SCORE: {player.highScore}</p>
+        <p>category: {currentCategory.name}</p>
       </>
     );
   } else {
@@ -31,8 +42,11 @@ export default function ContinueQuiz({
     scoreResult = (
       <>
         <h3 className="fontBig">You made a new record!</h3>
-        <h4>new high score : {player.currentScore}</h4>
-        <p>previous high score: {player.highScore}</p>
+        <span>
+          <p>new high score</p> <p>{player.currentScore}</p>
+        </span>
+        <p>PREVIOUS HIGH SCORE: {player.highScore}</p>
+        <p>category: {currentCategory.name}</p>
       </>
     );
   }
