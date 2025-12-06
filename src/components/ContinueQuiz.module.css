@@ -18,3 +18,14 @@
     font-size: 25px;
   }
 }
+
+.highScore {
+  font-weight: 300;
+  margin-bottom: 7px;
+}
+
+.playedCategory {
+  font-size: 15px;
+  font-weight: 300;
+  margin: 0;
+}

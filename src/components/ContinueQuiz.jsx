@@ -37,8 +37,10 @@ export default function ContinueQuiz({
           <p className={styles.title}>current score</p>
           <p className={styles.score}>{player.currentScore}</p>
         </div>
-        <p>HIGH SCORE: {player.highScore}</p>
-        <p>category: {currentCategory.name}</p>
+        <p className={styles.highScore}>HIGH SCORE: {player.highScore}</p>
+        <p lassName={styles.playedCategories}>
+          category: {currentCategory.name}
+        </p>
       </>
     );
   } else {
@@ -50,8 +52,12 @@ export default function ContinueQuiz({
           <p className={styles.title}>new high score</p>{" "}
           <p className={styles.score}>{player.currentScore}</p>
         </div>
-        <p>PREVIOUS HIGH SCORE: {player.highScore}</p>
-        <p>category: {currentCategory.name}</p>
+        <p className={styles.highScore}>
+          PREVIOUS HIGH SCORE: {player.highScore}
+        </p>
+        <p className={styles.playedCategories}>
+          category: {currentCategory.name}
+        </p>
       </>
     );
   }
