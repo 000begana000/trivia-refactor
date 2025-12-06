@@ -1,3 +1,8 @@
+img {
+  width: 65px;
+  height: 65px;
+}
+
 .finalScore {
   color: black;
   margin: 0 auto;
@@ -17,6 +22,12 @@
     margin: 0;
     font-size: 25px;
   }
+}
+
+.newRecord {
+  display: flex;
+  width: 480px;
+  margin: 0 auto;
 }
 
 .highScore {

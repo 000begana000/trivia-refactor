@@ -11,6 +11,9 @@ import styles from "./ContinueQuiz.module.css";
 // categories
 import { CATEGORIES } from "../store/categories";
 
+// image
+import fire from "../assets/Fire.svg";
+
 export default function ContinueQuiz({
   onChangePage,
   selectedAnswers,
@@ -48,9 +51,13 @@ export default function ContinueQuiz({
     scoreResult = (
       <>
         <h3 className="fontBig">You made a new record!</h3>
-        <div className={styles.finalScore}>
-          <p className={styles.title}>new high score</p>{" "}
-          <p className={styles.score}>{player.currentScore}</p>
+        <div className={styles.newRecord}>
+          <img src={fire} />
+          <div className={styles.finalScore}>
+            <p className={styles.title}>new high score</p>{" "}
+            <p className={styles.score}>{player.currentScore}</p>
+          </div>
+          <img src={fire} />
         </div>
         <p className={styles.highScore}>
           PREVIOUS HIGH SCORE: {player.highScore}
