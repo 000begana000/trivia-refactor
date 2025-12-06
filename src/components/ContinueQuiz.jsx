@@ -5,6 +5,9 @@ import { useContext } from "react";
 import { QuizContext } from "../store/quiz-context";
 import { PlayerContext } from "../store/player-context";
 
+// css module
+import styles from "./ContinueQuiz.module.css";
+
 // categories
 import { CATEGORIES } from "../store/categories";
 
@@ -30,9 +33,10 @@ export default function ContinueQuiz({
     onLocalStorageUpdate(player.highScore); // save new record to local storage
     scoreResult = (
       <>
-        <span>
-          <p>current score</p> <p>{player.currentScore}</p>
-        </span>
+        <div className={styles.finalScore}>
+          <p className={styles.title}>current score</p>
+          <p className={styles.score}>{player.currentScore}</p>
+        </div>
         <p>HIGH SCORE: {player.highScore}</p>
         <p>category: {currentCategory.name}</p>
       </>
@@ -42,9 +46,10 @@ export default function ContinueQuiz({
     scoreResult = (
       <>
         <h3 className="fontBig">You made a new record!</h3>
-        <span>
-          <p>new high score</p> <p>{player.currentScore}</p>
-        </span>
+        <div className={styles.finalScore}>
+          <p className={styles.title}>new high score</p>{" "}
+          <p className={styles.score}>{player.currentScore}</p>
+        </div>
         <p>PREVIOUS HIGH SCORE: {player.highScore}</p>
         <p>category: {currentCategory.name}</p>
       </>
