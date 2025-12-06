@@ -25,7 +25,7 @@ button {
 
 .mainPrompt {
   font-family: var(--font-family-base);
-  font-weight: 400;
+  font-weight: 300;
   font-size: 25px;
   text-transform: uppercase;
   margin: 0;
@@ -33,10 +33,10 @@ button {
 
 .fontBig {
   font-family: var(--font-family-base);
-  font-weight: 400;
+  font-weight: 300;
   font-size: 35px;
   text-transform: uppercase;
-  margin: 0;
+  margin: 10px 0;
 }
 
 .paragraph {
