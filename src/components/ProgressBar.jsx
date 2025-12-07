@@ -1,6 +1,9 @@
 // hooks
 import { useState, useEffect } from "react";
 
+// css module
+import styles from "./ProgressBar.module.css";
+
 export default function ProgressBar({ timeout }) {
   const [remainingTime, setRemainingTime] = useState(timeout);
 
@@ -15,5 +18,9 @@ export default function ProgressBar({ timeout }) {
     };
   }, []);
 
-  return <progress max={timeout} value={remainingTime} />;
+  return (
+    <>
+      <progress max={timeout} value={remainingTime} />
+    </>
+  );
 }
