@@ -40,3 +40,7 @@ img {
   font-weight: 300;
   margin: 0;
 }
+
+.container {
+  max-width: 1057px;
+}
