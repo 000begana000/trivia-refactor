@@ -86,6 +86,10 @@ export default function ContinueQuiz({
       <h1 className="mainPrompt">Quiz Complete</h1>
       <div>{scoreResult}</div>
       <div>
+        <div className="flex justify-spacebetween">
+          <p>Questions</p>
+          <p>Your Answers</p>
+        </div>
         {quizItems.map((item, index) => {
           const question = item.question;
           const selectedAnswer = selectedAnswers[index];
