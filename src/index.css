@@ -9,7 +9,7 @@
     rgba(107, 127, 215, 1) 100%
   );
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
   color: white;
   --font-family-base: "Lexend", sans-serif;
