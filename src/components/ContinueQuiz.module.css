@@ -44,3 +44,9 @@ img {
 .container {
   max-width: 1057px;
 }
+
+.title {
+  font-size: 25px;
+  font-weight: 500;
+  margin: 0;
+}

@@ -87,8 +87,8 @@ export default function ContinueQuiz({
       <div>{scoreResult}</div>
       <div className={styles.container}>
         <div className="flex justify-spacebetween">
-          <p>Questions</p>
-          <p>Your Answers</p>
+          <p className={styles.title}>Questions</p>
+          <p className={styles.title}>Your Answers</p>
         </div>
         {quizItems.map((item, index) => {
           const question = item.question;
