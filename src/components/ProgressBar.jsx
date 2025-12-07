@@ -1,0 +1,19 @@
+// hooks
+import { useState, useEffect } from "react";
+
+export default function ProgressBar({ timeout }) {
+  const [remainingTime, setRemainingTime] = useState(timeout);
+
+  // Reduce remaining time from progress bar
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRemainingTime(prevTime => prevTime - 100);
+    }, 100);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  return <progress max={timeout} value={remainingTime} />;
+}

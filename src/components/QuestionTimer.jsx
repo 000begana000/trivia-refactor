@@ -1,9 +1,10 @@
 // hooks
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+
+// component
+import ProgressBar from "./ProgressBar";
 
 export default function QuestionTimer({ onTimeout, timeout }) {
-  const [remainingTime, setRemainingTime] = useState(timeout);
-
   // Skip answer
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -15,16 +16,5 @@ export default function QuestionTimer({ onTimeout, timeout }) {
     };
   }, [onTimeout, timeout]);
 
-  // Reduce remaining time from progress bar
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRemainingTime(prevTime => prevTime - 100);
-    }, 100);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  return <progress max={timeout} value={remainingTime} />;
+  return <ProgressBar timeout={timeout} />;
 }
