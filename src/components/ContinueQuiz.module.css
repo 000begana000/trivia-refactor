@@ -43,6 +43,7 @@ img {
 
 .container {
   max-width: 1057px;
+  margin: 0 auto;
 }
 
 .titles {
