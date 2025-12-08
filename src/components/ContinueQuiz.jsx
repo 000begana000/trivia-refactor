@@ -5,6 +5,9 @@ import { useContext } from "react";
 import { QuizContext } from "../store/quiz-context";
 import { PlayerContext } from "../store/player-context";
 
+// imported function
+import { decodeHTML } from "../store/htmlDecoder";
+
 // css module
 import styles from "./ContinueQuiz.module.css";
 
@@ -108,7 +111,7 @@ export default function ContinueQuiz({
 
             return (
               <div className="flex justify-spacebetween" key={question}>
-                <p>{question}</p>
+                <p>{decodeHTML(question)}</p>
                 <p className={cssClass}>{selectedAnswer}</p>
               </div>
             );
