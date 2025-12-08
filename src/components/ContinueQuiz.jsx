@@ -90,28 +90,30 @@ export default function ContinueQuiz({
           <p className={styles.title}>Questions</p>
           <p className={styles.title}>Your Answers</p>
         </div>
-        {quizItems.map((item, index) => {
-          const question = item.question;
-          const selectedAnswer = selectedAnswers[index];
-          const correctAnswer = quizItems[index].correct_answer.toLowerCase();
+        <div className={styles.questionsAndAnswers}>
+          {quizItems.map((item, index) => {
+            const question = item.question;
+            const selectedAnswer = selectedAnswers[index];
+            const correctAnswer = quizItems[index].correct_answer.toLowerCase();
 
-          let cssClass;
+            let cssClass;
 
-          if (selectedAnswer === correctAnswer) {
-            cssClass = "correct";
-          } else if (selectedAnswer === "skipped") {
-            cssClass = "skipped";
-          } else {
-            cssClass = "wrong";
-          }
+            if (selectedAnswer === correctAnswer) {
+              cssClass = "correct";
+            } else if (selectedAnswer === "skipped") {
+              cssClass = "skipped";
+            } else {
+              cssClass = "wrong";
+            }
 
-          return (
-            <div className="flex justify-spacebetween" key={question}>
-              <p>{question}</p>
-              <p className={cssClass}>{selectedAnswer}</p>
-            </div>
-          );
-        })}
+            return (
+              <div className="flex justify-spacebetween" key={question}>
+                <p>{question}</p>
+                <p className={cssClass}>{selectedAnswer}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
       <button onClick={handleChangePage}>Continue Play</button>
     </>

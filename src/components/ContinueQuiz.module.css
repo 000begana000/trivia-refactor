@@ -56,3 +56,11 @@ img {
   font-weight: 500;
   margin: 0;
 }
+
+.questionsAndAnswers {
+  margin-top: 20px;
+  p {
+    margin: 15px 0 0 0;
+    font-size: 15px;
+  }
+}
