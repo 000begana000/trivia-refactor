@@ -86,7 +86,7 @@ export default function ContinueQuiz({
       <h1 className="mainPrompt">Quiz Complete</h1>
       <div>{scoreResult}</div>
       <div className={styles.container}>
-        <div className="flex justify-spacebetween">
+        <div className={styles.titles}>
           <p className={styles.title}>Questions</p>
           <p className={styles.title}>Your Answers</p>
         </div>
