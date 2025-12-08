@@ -51,6 +51,7 @@ button {
 .buttonPrimary {
   width: 197px;
   height: 50px;
+  margin-bottom: 150px;
   background-color: var(--primary-blue);
   border: none;
   font-size: 20px;
@@ -84,10 +85,6 @@ button {
 
 .wrong {
   background-color: rgba(240, 166, 166, 06);
-}
-
-.skipped {
-  background-color: yellow;
 }
 
 .flex {

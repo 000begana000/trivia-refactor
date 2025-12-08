@@ -58,9 +58,17 @@ img {
 }
 
 .questionsAndAnswers {
-  margin-top: 20px;
+  margin: 20px 0 57px 0;
   p {
     margin: 15px 0 0 0;
     font-size: 15px;
   }
+}
+
+.correct {
+  color: #34c759;
+}
+
+.wrong {
+  color: #ff383c;
 }

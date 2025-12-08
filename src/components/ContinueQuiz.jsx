@@ -99,26 +99,26 @@ export default function ContinueQuiz({
             const selectedAnswer = selectedAnswers[index];
             const correctAnswer = quizItems[index].correct_answer.toLowerCase();
 
-            let cssClass;
-
-            if (selectedAnswer === correctAnswer) {
-              cssClass = "correct";
-            } else if (selectedAnswer === "skipped") {
-              cssClass = "skipped";
-            } else {
-              cssClass = "wrong";
-            }
-
             return (
               <div className="flex justify-spacebetween" key={question}>
                 <p>{decodeHTML(question)}</p>
-                <p className={cssClass}>{selectedAnswer}</p>
+                <p
+                  className={
+                    selectedAnswer === correctAnswer
+                      ? styles.correct
+                      : styles.wrong
+                  }
+                >
+                  {selectedAnswer}
+                </p>
               </div>
             );
           })}
         </div>
       </div>
-      <button onClick={handleChangePage}>Continue Play</button>
+      <button className="buttonPrimary" onClick={handleChangePage}>
+        Continue Play
+      </button>
     </>
   );
 }
