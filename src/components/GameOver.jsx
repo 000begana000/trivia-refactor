@@ -8,6 +8,9 @@ import { PlayerContext } from "../store/player-context";
 // image
 import fire from "../assets/Fire.svg";
 
+// css module
+import styles from "./GameOver.module.css";
+
 export default function GameOver({ onChangePage }) {
   // imported states & functions from contexts
   const { onResetPlayedCategory } = useContext(QuizContext);
@@ -27,14 +30,13 @@ export default function GameOver({ onChangePage }) {
   if (player.currentScore <= player.highScore) {
     onLocalStorageUpdate(player.highScore);
     scoreResult = (
-      <div className={styles.newRecord}>
-        <img src={fire} />
+      <>
         <div className={styles.finalScore}>
-          <p>final score: {player.currentScore}</p>
-          <p>high score: {player.highScore}</p>
-          <img src={fire} />
+          <p className={styles.title}>final score</p>
+          <p className={styles.score}>{player.currentScore}</p>
         </div>
-      </div>
+        <p className={styles.highScore}>high score: {player.highScore}</p>
+      </>
     );
     // else player made new record
   } else {
@@ -42,8 +44,17 @@ export default function GameOver({ onChangePage }) {
     scoreResult = (
       <>
         <h3 className="fontBig">You made a new record!</h3>
-        <h4>new high score : {player.currentScore}</h4>
-        <p>previous high score: {player.highScore}</p>
+        <div className={styles.newRecord}>
+          <img src={fire} />
+          <div className={styles.finalScore}>
+            <p className={styles.title}>new high score</p>{" "}
+            <p className={styles.score}>{player.currentScore}</p>
+          </div>
+          <img src={fire} />
+        </div>
+        <p className={styles.highScore}>
+          PREVIOUS HIGH SCORE: {player.highScore}
+        </p>
       </>
     );
   }
@@ -52,7 +63,9 @@ export default function GameOver({ onChangePage }) {
     <>
       <h1 className="mainPrompt">Game Over, {player.playerName}!</h1>
       {scoreResult}
-      <button onClick={handleChangePage}>Start New Game</button>
+      <button className="buttonPrimary" onClick={handleChangePage}>
+        Start New Game
+      </button>
     </>
   );
 }

@@ -49,7 +49,7 @@ button {
 }
 
 .buttonPrimary {
-  width: 197px;
+  width: 250px;
   height: 50px;
   margin-bottom: 150px;
   background-color: var(--primary-blue);

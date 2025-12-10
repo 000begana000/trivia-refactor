@@ -1,6 +1,6 @@
 .finalScore {
   color: black;
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
   width: 350px;
   height: 65px;
   background-color: var(--primary-blue);
@@ -23,4 +23,9 @@
   display: flex;
   width: 480px;
   margin: 0 auto;
+}
+
+.highScore {
+  font-weight: 300;
+  margin-bottom: 7px;
 }
