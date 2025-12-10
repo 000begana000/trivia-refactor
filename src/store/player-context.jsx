@@ -1,3 +1,4 @@
+// hooks
 import { createContext, useState } from "react";
 
 export const PlayerContext = createContext({
@@ -12,12 +13,15 @@ export const PlayerContext = createContext({
   onResetPlayer: () => {},
 });
 
+// fetch localStorage
 const localStoragePlayers = JSON.parse(localStorage.getItem("players")) || [];
 
 export default function PlayerContextProvider({ children }) {
+  // states
   const [player, setPlayer] = useState("");
   const [players, setPlayers] = useState(localStoragePlayers);
 
+  // create new player
   function handleCreatePlayer(playerName) {
     const newPlayer = {
       playerName,
@@ -28,9 +32,11 @@ export default function PlayerContextProvider({ children }) {
 
     setPlayer(newPlayer);
 
+    // save to localStorage
     localStorage.setItem("players", JSON.stringify([newPlayer, ...players]));
   }
 
+  // select a current player
   function handleSelectPlayer(selectedPlayerName) {
     const selectedPlayer = players.find(
       player => player.playerName === selectedPlayerName
@@ -38,6 +44,7 @@ export default function PlayerContextProvider({ children }) {
     setPlayer(selectedPlayer);
   }
 
+  // reduce 1 life when player choose incorrect answer
   function handleReducePlayerLife() {
     setPlayer(prevState => ({
       ...prevState,
@@ -45,6 +52,7 @@ export default function PlayerContextProvider({ children }) {
     }));
   }
 
+  // increase current score when player choose correct answer
   function handleIncreaseCurrentScore() {
     setPlayer(prevState => ({
       ...prevState,
@@ -52,6 +60,7 @@ export default function PlayerContextProvider({ children }) {
     }));
   }
 
+  // update player's new info to localStorage
   function handleLocalStorageUpdate(highScore) {
     const existingPlayerIndex = players.findIndex(
       existingPlayer => existingPlayer.playerName === player.playerName
@@ -72,6 +81,7 @@ export default function PlayerContextProvider({ children }) {
     localStorage.setItem("players", JSON.stringify([...updatedPlayers]));
   }
 
+  // update current player's current score and high score to continue play
   function handleContinuePlay(highScore, currentScore) {
     setPlayer(prevState => ({
       ...prevState,
@@ -80,6 +90,7 @@ export default function PlayerContextProvider({ children }) {
     }));
   }
 
+  // reset current player's status to start new game
   function handleResetPlayer() {
     setPlayer(prevState => ({
       ...prevState,
@@ -89,6 +100,7 @@ export default function PlayerContextProvider({ children }) {
     }));
   }
 
+  // context values
   const ctxValue = {
     player,
     players,
