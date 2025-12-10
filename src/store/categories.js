@@ -1,3 +1,4 @@
+// available category ids and names from trivia api
 export const CATEGORIES = [
   { id: 9, name: "General Knowledge" },
   { id: 11, name: "Film" },
