@@ -59,7 +59,7 @@ export default function Login({ onChangePage }) {
             name="playerName"
             type="text"
             required
-            minLength={5}
+            minLength={4}
             ref={playerName}
             disabled={player}
           />
