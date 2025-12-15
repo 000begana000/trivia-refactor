@@ -11,7 +11,9 @@ export default function QuestionTimer({ onTimeout, timeout }) {
       onTimeout();
     }, timeout);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [onTimeout, timeout]);
 
   return <ProgressBar timeout={timeout} />;
