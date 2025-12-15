@@ -13,9 +13,7 @@ export default function ProgressBar({ timeout }) {
       setRemainingTime(prevTime => prevTime - 100);
     }, 100);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   return (
