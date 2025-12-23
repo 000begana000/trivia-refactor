@@ -9,14 +9,22 @@ export default function ProgressBar({ timeout }) {
 
   // Reduce remaining time from progress bar
   useEffect(() => {
+    setRemainingTime(timeout);
+
     const interval = setInterval(() => {
-      setRemainingTime(prevTime => prevTime - 100);
+      setRemainingTime(prevTime => {
+        if (prevTime <= 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 100;
+      });
     }, 100);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [timeout]);
 
   return (
     <>

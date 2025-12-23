@@ -77,6 +77,7 @@ export default function Quiz({ onChangePage }) {
           setAnswerState("wrong"); // to highlight buttons to red & change timer value
           onReducePlayerLife(); // reduce life -1
         }
+
         setTimeout(() => {
           setAnswerState("unanswered"); // reset answer state to "unanswered"
           setSelectedAnswerButton(null);
@@ -150,7 +151,7 @@ export default function Quiz({ onChangePage }) {
           <p>{decodeHTML(quizItems[activeQuestionIndex].question)}</p>
         )}
       </div>
-      <QuestionTimer key={timer} timeout={timer} onTimeout={handleSkipAnswer} />
+      <QuestionTimer timeout={timer} onTimeout={handleSkipAnswer} />
       <p className={styles.answerButtons}>
         <button
           className={`${
