@@ -17,7 +17,7 @@ export default function ProgressBar({ timeout }) {
           clearInterval(interval);
           return 0;
         }
-        return prev - 100;
+        return prevTime - 100;
       });
     }, 100);
 

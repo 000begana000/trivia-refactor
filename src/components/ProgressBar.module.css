@@ -7,20 +7,14 @@
 }
 
 .progress::-webkit-progress-bar {
-  border: 0;
-  height: 13px;
   border-radius: 20px;
 }
 
 .progress::-webkit-progress-value {
-  border: 0;
-  height: 13px;
-  border-radius: 20px;
   background-color: #34c759;
+  border-radius: 20px;
 }
 
 .progress::-moz-progress-bar {
-  border: 0;
-  height: 13px;
   border-radius: 20px;
 }
