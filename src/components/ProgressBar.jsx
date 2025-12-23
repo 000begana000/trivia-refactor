@@ -20,7 +20,11 @@ export default function ProgressBar({ timeout }) {
 
   return (
     <>
-      <progress max={timeout} value={remainingTime} />
+      <progress
+        className={styles.progress}
+        max={timeout}
+        value={remainingTime}
+      />
     </>
   );
 }

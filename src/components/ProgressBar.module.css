@@ -1,4 +1,4 @@
-progress {
+.progress {
   margin-top: 20px;
   border: 0;
   height: 13px;
@@ -6,20 +6,20 @@ progress {
   border-radius: 20px;
 }
 
-progress::-webkit-progress-bar {
+.progress::-webkit-progress-bar {
   border: 0;
   height: 13px;
   border-radius: 20px;
 }
 
-progress::-webkit-progress-value {
+.progress::-webkit-progress-value {
   border: 0;
   height: 13px;
   border-radius: 20px;
   background-color: #34c759;
 }
 
-progress::-moz-progress-bar {
+.progress::-moz-progress-bar {
   border: 0;
   height: 13px;
   border-radius: 20px;
